@@ -1,0 +1,22 @@
+
+{
+    "ipcTimeSheetApp": {
+        "projectCode" : {
+            "home": {
+                "title": "Project Codes",
+                "createLabel": "Create a new Project Code",
+                "createOrEditLabel": "Create or edit a Project Code"
+            },
+            "created": "A new Project Code is created with identifier {{ param }}",
+            "updated": "A Project Code is updated with identifier {{ param }}",
+            "deleted": "A Project Code is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Project Code {{ id }}?"
+            },
+            "detail": {
+                "title": "Project Code"
+            },
+            "projectCode": "Project Code"
+        }
+    }
+}

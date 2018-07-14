@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity TimeSheet.
+    -->
+    <changeSet id="20180714192124-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="department_id"
+                                 baseTableName="time_sheet"
+                                 constraintName="fk_time_sheet_department_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="department"/>
+
+        <addForeignKeyConstraint baseColumnNames="agile_team_id"
+                                 baseTableName="time_sheet"
+                                 constraintName="fk_time_sheet_agile_team_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="agile_team"/>
+
+        <addForeignKeyConstraint baseColumnNames="project_code_id"
+                                 baseTableName="time_sheet"
+                                 constraintName="fk_time_sheet_project_code_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="project_code"/>
+
+        <addForeignKeyConstraint baseColumnNames="task_type_id"
+                                 baseTableName="time_sheet"
+                                 constraintName="fk_time_sheet_task_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="task_type"/>
+
+    </changeSet>
+</databaseChangeLog>

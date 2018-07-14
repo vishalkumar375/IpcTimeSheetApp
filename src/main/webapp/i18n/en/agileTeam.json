@@ -1,0 +1,22 @@
+
+{
+    "ipcTimeSheetApp": {
+        "agileTeam" : {
+            "home": {
+                "title": "Agile Teams",
+                "createLabel": "Create a new Agile Team",
+                "createOrEditLabel": "Create or edit a Agile Team"
+            },
+            "created": "A new Agile Team is created with identifier {{ param }}",
+            "updated": "A Agile Team is updated with identifier {{ param }}",
+            "deleted": "A Agile Team is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Agile Team {{ id }}?"
+            },
+            "detail": {
+                "title": "Agile Team"
+            },
+            "teamName": "Team Name"
+        }
+    }
+}

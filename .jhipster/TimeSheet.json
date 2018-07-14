@@ -1,0 +1,82 @@
+{
+    "name": "TimeSheet",
+    "fields": [
+        {
+            "fieldName": "empID",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "fullName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "personId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "forDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "forDay",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "actualHours",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "comments",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "department",
+            "otherEntityName": "department",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "timeSheet"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "agileTeam",
+            "otherEntityName": "agileTeam",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "timeSheet"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "projectCode",
+            "otherEntityName": "projectCode",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "timeSheet"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "taskType",
+            "otherEntityName": "taskType",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "timeSheet"
+        }
+    ],
+    "changelogDate": "20180714192124",
+    "entityTableName": "time_sheet",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

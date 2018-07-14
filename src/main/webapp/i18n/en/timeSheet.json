@@ -1,0 +1,32 @@
+
+{
+    "ipcTimeSheetApp": {
+        "timeSheet" : {
+            "home": {
+                "title": "Time Sheets",
+                "createLabel": "Create a new Time Sheet",
+                "createOrEditLabel": "Create or edit a Time Sheet"
+            },
+            "created": "A new Time Sheet is created with identifier {{ param }}",
+            "updated": "A Time Sheet is updated with identifier {{ param }}",
+            "deleted": "A Time Sheet is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Time Sheet {{ id }}?"
+            },
+            "detail": {
+                "title": "Time Sheet"
+            },
+            "empID": "Emp ID",
+            "fullName": "Full Name",
+            "personId": "Person Id",
+            "forDate": "For Date",
+            "forDay": "For Day",
+            "actualHours": "Actual Hours",
+            "comments": "Comments",
+            "department": "Department",
+            "agileTeam": "Agile Team",
+            "projectCode": "Project Code",
+            "taskType": "Task Type"
+        }
+    }
+}

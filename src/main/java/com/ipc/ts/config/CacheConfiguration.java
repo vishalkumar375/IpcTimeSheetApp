@@ -41,6 +41,11 @@ public class CacheConfiguration {
             cm.createCache(com.ipc.ts.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.ipc.ts.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.ipc.ts.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.ipc.ts.domain.ProjectCode.class.getName(), jcacheConfiguration);
+            cm.createCache(com.ipc.ts.domain.AgileTeam.class.getName(), jcacheConfiguration);
+            cm.createCache(com.ipc.ts.domain.Department.class.getName(), jcacheConfiguration);
+            cm.createCache(com.ipc.ts.domain.TaskType.class.getName(), jcacheConfiguration);
+            cm.createCache(com.ipc.ts.domain.TimeSheet.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

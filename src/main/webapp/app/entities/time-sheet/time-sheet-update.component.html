@@ -1,0 +1,105 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-time-sheet-heading" jhiTranslate="ipcTimeSheetApp.timeSheet.home.createOrEditLabel">Create or edit a Time Sheet</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!timeSheet.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="timeSheet.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.empID" for="field_empID">Emp ID</label>
+                    <input type="number" class="form-control" name="empID" id="field_empID"
+                        [(ngModel)]="timeSheet.empID" required/>
+                    <div [hidden]="!(editForm.controls.empID?.dirty && editForm.controls.empID?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.empID?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.empID?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.fullName" for="field_fullName">Full Name</label>
+                    <input type="text" class="form-control" name="fullName" id="field_fullName"
+                        [(ngModel)]="timeSheet.fullName" required/>
+                    <div [hidden]="!(editForm.controls.fullName?.dirty && editForm.controls.fullName?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.fullName?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.personId" for="field_personId">Person Id</label>
+                    <input type="text" class="form-control" name="personId" id="field_personId"
+                        [(ngModel)]="timeSheet.personId" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.forDate" for="field_forDate">For Date</label>
+                    <div class="d-flex">
+                        <input id="field_forDate" type="datetime-local" class="form-control" name="forDate" [(ngModel)]="forDate"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.forDay" for="field_forDay">For Day</label>
+                    <input type="text" class="form-control" name="forDay" id="field_forDay"
+                        [(ngModel)]="timeSheet.forDay" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.actualHours" for="field_actualHours">Actual Hours</label>
+                    <input type="number" class="form-control" name="actualHours" id="field_actualHours"
+                        [(ngModel)]="timeSheet.actualHours" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.comments" for="field_comments">Comments</label>
+                    <input type="text" class="form-control" name="comments" id="field_comments"
+                        [(ngModel)]="timeSheet.comments" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.department" for="field_department">Department</label>
+                    <select class="form-control" id="field_department" name="department" [(ngModel)]="timeSheet.departmentId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="departmentOption.id" *ngFor="let departmentOption of departments; trackBy: trackDepartmentById">{{departmentOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.agileTeam" for="field_agileTeam">Agile Team</label>
+                    <select class="form-control" id="field_agileTeam" name="agileTeam" [(ngModel)]="timeSheet.agileTeamId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="agileTeamOption.id" *ngFor="let agileTeamOption of agileteams; trackBy: trackAgileTeamById">{{agileTeamOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.projectCode" for="field_projectCode">Project Code</label>
+                    <select class="form-control" id="field_projectCode" name="projectCode" [(ngModel)]="timeSheet.projectCodeId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="projectCodeOption.id" *ngFor="let projectCodeOption of projectcodes; trackBy: trackProjectCodeById">{{projectCodeOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.taskType" for="field_taskType">Task Type</label>
+                    <select class="form-control" id="field_taskType" name="taskType" [(ngModel)]="timeSheet.taskTypeId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="taskTypeOption.id" *ngFor="let taskTypeOption of tasktypes; trackBy: trackTaskTypeById">{{taskTypeOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

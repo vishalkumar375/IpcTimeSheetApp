@@ -1,0 +1,22 @@
+{
+    "name": "AgileTeam",
+    "fields": [
+        {
+            "fieldName": "teamName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20180714192121",
+    "entityTableName": "agile_team",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

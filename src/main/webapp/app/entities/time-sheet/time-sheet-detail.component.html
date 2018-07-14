@@ -1,0 +1,75 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="timeSheet">
+            <h2><span jhiTranslate="ipcTimeSheetApp.timeSheet.detail.title">Time Sheet</span> {{timeSheet.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.empID">Emp ID</span></dt>
+                <dd>
+                    <span>{{timeSheet.empID}}</span>
+                </dd>
+                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.fullName">Full Name</span></dt>
+                <dd>
+                    <span>{{timeSheet.fullName}}</span>
+                </dd>
+                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.personId">Person Id</span></dt>
+                <dd>
+                    <span>{{timeSheet.personId}}</span>
+                </dd>
+                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.forDate">For Date</span></dt>
+                <dd>
+                    <span>{{timeSheet.forDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.forDay">For Day</span></dt>
+                <dd>
+                    <span>{{timeSheet.forDay}}</span>
+                </dd>
+                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.actualHours">Actual Hours</span></dt>
+                <dd>
+                    <span>{{timeSheet.actualHours}}</span>
+                </dd>
+                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.comments">Comments</span></dt>
+                <dd>
+                    <span>{{timeSheet.comments}}</span>
+                </dd>
+                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.department">Department</span></dt>
+                <dd>
+                    <div *ngIf="timeSheet.departmentId">
+                        <a [routerLink]="['/department', timeSheet.departmentId, 'view']">{{timeSheet.departmentId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.agileTeam">Agile Team</span></dt>
+                <dd>
+                    <div *ngIf="timeSheet.agileTeamId">
+                        <a [routerLink]="['/agile-team', timeSheet.agileTeamId, 'view']">{{timeSheet.agileTeamId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.projectCode">Project Code</span></dt>
+                <dd>
+                    <div *ngIf="timeSheet.projectCodeId">
+                        <a [routerLink]="['/project-code', timeSheet.projectCodeId, 'view']">{{timeSheet.projectCodeId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.taskType">Task Type</span></dt>
+                <dd>
+                    <div *ngIf="timeSheet.taskTypeId">
+                        <a [routerLink]="['/task-type', timeSheet.taskTypeId, 'view']">{{timeSheet.taskTypeId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/time-sheet', timeSheet.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
