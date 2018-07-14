@@ -1,0 +1,37 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.ipc.ts",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "5.1.0",
+    "applicationType": "monolith",
+    "baseName": "IpcTimeSheetApp",
+    "packageName": "com.ipc.ts",
+    "packageFolder": "com/ipc/ts",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "483ea25f069e13755f860df6861e436600e32e63",
+    "clientFramework": "angularX",
+    "useSass": true,
+    "clientPackageManager": "yarn",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": [
+      "en"
+    ]
+  }
+}
