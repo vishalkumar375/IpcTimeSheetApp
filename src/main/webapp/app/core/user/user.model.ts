@@ -1,3 +1,7 @@
+import { IAgileTeam } from 'app/shared/model/agile-team.model';
+import { IProjectCode } from 'app/shared/model/project-code.model';
+import { IDepartment } from 'app/shared/model/department.model';
+
 export interface IUser {
     id?: any;
     login?: string;
@@ -12,6 +16,11 @@ export interface IUser {
     lastModifiedBy?: string;
     lastModifiedDate?: Date;
     password?: string;
+    department?: IDepartment;
+    agileTeam?: IAgileTeam;
+    projectCode?: IProjectCode;
+    empId?: number;
+    personId?: number;
 }
 
 export class User implements IUser {
@@ -28,7 +37,12 @@ export class User implements IUser {
         public createdDate?: Date,
         public lastModifiedBy?: string,
         public lastModifiedDate?: Date,
-        public password?: string
+        public password?: string,
+        public department?: IDepartment,
+        public agileTeam?: IAgileTeam,
+        public projectCode?: IProjectCode,
+        public empId?: number,
+        public personId?: number
     ) {
         this.id = id ? id : null;
         this.login = login ? login : null;
@@ -43,5 +57,10 @@ export class User implements IUser {
         this.lastModifiedBy = lastModifiedBy ? lastModifiedBy : null;
         this.lastModifiedDate = lastModifiedDate ? lastModifiedDate : null;
         this.password = password ? password : null;
+        this.department = department ? department : null;
+        this.agileTeam = agileTeam ? agileTeam : null;
+        this.projectCode = projectCode ? projectCode : null;
+        this.empId = empId ? empId : null;
+        this.personId = personId ? personId : null;
     }
 }

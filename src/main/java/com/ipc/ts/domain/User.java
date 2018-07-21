@@ -83,6 +83,25 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "reset_date")
     private Instant resetDate = null;
+    
+    @Column(name="emp_id")
+    private Integer empId;
+    
+    @Column(name="person_id")
+    private Integer personId;
+    
+    @OneToOne
+    @JoinColumn(unique = true)
+    private AgileTeam agileTeam;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private ProjectCode projectCode;
+    
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Department department;
+    
 
     @JsonIgnore
     @ManyToMany
@@ -199,7 +218,49 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.authorities = authorities;
     }
 
-    @Override
+   
+
+	public Integer getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(Integer empId) {
+		this.empId = empId;
+	}
+
+	public Integer getPersonId() {
+		return personId;
+	}
+
+	public void setPersonId(Integer personId) {
+		this.personId = personId;
+	}
+
+	public AgileTeam getAgileTeam() {
+		return agileTeam;
+	}
+
+	public void setAgileTeam(AgileTeam agileTeam) {
+		this.agileTeam = agileTeam;
+	}
+
+	public ProjectCode getProjectCode() {
+		return projectCode;
+	}
+
+	public void setProjectCode(ProjectCode projectCode) {
+		this.projectCode = projectCode;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -228,6 +289,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
             ", activated='" + activated + '\'' +
             ", langKey='" + langKey + '\'' +
             ", activationKey='" + activationKey + '\'' +
+            ", department='" + department + '\'' +
+            ", personId='" + personId + '\'' +
+            ", empId='" + empId + '\'' +
+            ", agileTeam='" + agileTeam + '\'' +
+            ", projectCode='" + projectCode + '\'' +
             "}";
     }
 }

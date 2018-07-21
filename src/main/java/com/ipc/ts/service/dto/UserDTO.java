@@ -1,13 +1,14 @@
 package com.ipc.ts.service.dto;
 
 import com.ipc.ts.config.Constants;
-
+import com.ipc.ts.domain.AgileTeam;
 import com.ipc.ts.domain.Authority;
+import com.ipc.ts.domain.Department;
+import com.ipc.ts.domain.ProjectCode;
 import com.ipc.ts.domain.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
 import javax.validation.constraints.*;
 import java.time.Instant;
 import java.util.Set;
@@ -52,6 +53,16 @@ public class UserDTO {
     private Instant lastModifiedDate;
 
     private Set<String> authorities;
+    
+    private Integer empId;
+    
+    private Integer personId;
+    
+    private AgileTeam agileTeam;
+
+    private ProjectCode projectCode;
+    
+    private Department department;
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
@@ -70,6 +81,11 @@ public class UserDTO {
         this.createdDate = user.getCreatedDate();
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
+        this.empId = user.getEmpId();
+        this.personId = user.getPersonId();
+        this.agileTeam = user.getAgileTeam();
+        this.projectCode = user.getProjectCode();
+        this.department = user.getDepartment();
         this.authorities = user.getAuthorities().stream()
             .map(Authority::getName)
             .collect(Collectors.toSet());
@@ -178,8 +194,48 @@ public class UserDTO {
     public void setAuthorities(Set<String> authorities) {
         this.authorities = authorities;
     }
+    
+	public Integer getEmpId() {
+		return empId;
+	}
 
-    @Override
+	public void setEmpId(Integer empId) {
+		this.empId = empId;
+	}
+
+	public Integer getPersonId() {
+		return personId;
+	}
+
+	public void setPersonId(Integer personId) {
+		this.personId = personId;
+	}
+
+	public AgileTeam getAgileTeam() {
+		return agileTeam;
+	}
+
+	public void setAgileTeam(AgileTeam agileTeam) {
+		this.agileTeam = agileTeam;
+	}
+
+	public ProjectCode getProjectCode() {
+		return projectCode;
+	}
+
+	public void setProjectCode(ProjectCode projectCode) {
+		this.projectCode = projectCode;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	@Override
     public String toString() {
         return "UserDTO{" +
             "login='" + login + '\'' +
@@ -188,6 +244,11 @@ public class UserDTO {
             ", email='" + email + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", activated=" + activated +
+            ", department='" + department + '\'' +
+            ", personId='" + personId + '\'' +
+            ", empId='" + empId + '\'' +
+            ", agileTeam='" + agileTeam + '\'' +
+            ", projectCode='" + projectCode + '\'' +
             ", langKey='" + langKey + '\'' +
             ", createdBy=" + createdBy +
             ", createdDate=" + createdDate +

@@ -42,6 +42,8 @@ public class UserService {
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
+    
+    private final String DEFAULT_PASSOWRD = "WElcome12#";
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
@@ -100,6 +102,11 @@ public class UserService {
         newUser.setEmail(userDTO.getEmail());
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
+        newUser.setEmpId(userDTO.getEmpId());
+        newUser.setPersonId(userDTO.getPersonId());
+        newUser.setAgileTeam(userDTO.getAgileTeam());
+        newUser.setDepartment(userDTO.getDepartment());
+        newUser.setProjectCode(userDTO.getProjectCode());
         // new user is not active
         newUser.setActivated(false);
         // new user gets registration key
@@ -120,6 +127,11 @@ public class UserService {
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
         user.setImageUrl(userDTO.getImageUrl());
+        user.setEmpId(userDTO.getEmpId());
+        user.setPersonId(userDTO.getPersonId());
+        user.setAgileTeam(userDTO.getAgileTeam());
+        user.setDepartment(userDTO.getDepartment());
+        user.setProjectCode(userDTO.getProjectCode());
         if (userDTO.getLangKey() == null) {
             user.setLangKey(Constants.DEFAULT_LANGUAGE); // default language
         } else {
@@ -133,7 +145,7 @@ public class UserService {
                 .collect(Collectors.toSet());
             user.setAuthorities(authorities);
         }
-        String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
+        String encryptedPassword = passwordEncoder.encode(/*RandomUtil.generatePassword()*/DEFAULT_PASSOWRD);
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());
@@ -187,6 +199,11 @@ public class UserService {
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
                 user.setLangKey(userDTO.getLangKey());
+                user.setEmpId(userDTO.getEmpId());
+                user.setPersonId(userDTO.getPersonId());
+                user.setAgileTeam(userDTO.getAgileTeam());
+                user.setDepartment(userDTO.getDepartment());
+                user.setProjectCode(userDTO.getProjectCode());
                 Set<Authority> managedAuthorities = user.getAuthorities();
                 managedAuthorities.clear();
                 userDTO.getAuthorities().stream()
