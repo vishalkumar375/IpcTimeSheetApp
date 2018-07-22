@@ -3,6 +3,7 @@ package com.ipc.ts.web.rest;
 import com.ipc.ts.IpcTimeSheetApp;
 
 import com.ipc.ts.domain.TimeSheet;
+import com.ipc.ts.domain.User;
 import com.ipc.ts.repository.TimeSheetRepository;
 import com.ipc.ts.service.TimeSheetService;
 import com.ipc.ts.service.dto.TimeSheetDTO;
@@ -44,20 +45,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = IpcTimeSheetApp.class)
 public class TimeSheetResourceIntTest {
 
-    private static final Integer DEFAULT_EMP_ID = 1;
-    private static final Integer UPDATED_EMP_ID = 2;
-
-    private static final String DEFAULT_FULL_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_FULL_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_PERSON_ID = "AAAAAAAAAA";
-    private static final String UPDATED_PERSON_ID = "BBBBBBBBBB";
-
     private static final Instant DEFAULT_FOR_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_FOR_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-
-    private static final String DEFAULT_FOR_DAY = "AAAAAAAAAA";
-    private static final String UPDATED_FOR_DAY = "BBBBBBBBBB";
 
     private static final Integer DEFAULT_ACTUAL_HOURS = 1;
     private static final Integer UPDATED_ACTUAL_HOURS = 2;
@@ -111,13 +100,14 @@ public class TimeSheetResourceIntTest {
      */
     public static TimeSheet createEntity(EntityManager em) {
         TimeSheet timeSheet = new TimeSheet()
-            .empID(DEFAULT_EMP_ID)
-            .fullName(DEFAULT_FULL_NAME)
-            .personId(DEFAULT_PERSON_ID)
             .forDate(DEFAULT_FOR_DATE)
-            .forDay(DEFAULT_FOR_DAY)
             .actualHours(DEFAULT_ACTUAL_HOURS)
             .comments(DEFAULT_COMMENTS);
+        // Add required entity
+        User user = UserResourceIntTest.createEntity(em);
+        em.persist(user);
+        em.flush();
+        timeSheet.setUser(user);
         return timeSheet;
     }
 
@@ -142,11 +132,7 @@ public class TimeSheetResourceIntTest {
         List<TimeSheet> timeSheetList = timeSheetRepository.findAll();
         assertThat(timeSheetList).hasSize(databaseSizeBeforeCreate + 1);
         TimeSheet testTimeSheet = timeSheetList.get(timeSheetList.size() - 1);
-        assertThat(testTimeSheet.getEmpID()).isEqualTo(DEFAULT_EMP_ID);
-        assertThat(testTimeSheet.getFullName()).isEqualTo(DEFAULT_FULL_NAME);
-        assertThat(testTimeSheet.getPersonId()).isEqualTo(DEFAULT_PERSON_ID);
         assertThat(testTimeSheet.getForDate()).isEqualTo(DEFAULT_FOR_DATE);
-        assertThat(testTimeSheet.getForDay()).isEqualTo(DEFAULT_FOR_DAY);
         assertThat(testTimeSheet.getActualHours()).isEqualTo(DEFAULT_ACTUAL_HOURS);
         assertThat(testTimeSheet.getComments()).isEqualTo(DEFAULT_COMMENTS);
     }
@@ -173,44 +159,6 @@ public class TimeSheetResourceIntTest {
 
     @Test
     @Transactional
-    public void checkEmpIDIsRequired() throws Exception {
-        int databaseSizeBeforeTest = timeSheetRepository.findAll().size();
-        // set the field null
-        timeSheet.setEmpID(null);
-
-        // Create the TimeSheet, which fails.
-        TimeSheetDTO timeSheetDTO = timeSheetMapper.toDto(timeSheet);
-
-        restTimeSheetMockMvc.perform(post("/api/time-sheets")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(timeSheetDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<TimeSheet> timeSheetList = timeSheetRepository.findAll();
-        assertThat(timeSheetList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkFullNameIsRequired() throws Exception {
-        int databaseSizeBeforeTest = timeSheetRepository.findAll().size();
-        // set the field null
-        timeSheet.setFullName(null);
-
-        // Create the TimeSheet, which fails.
-        TimeSheetDTO timeSheetDTO = timeSheetMapper.toDto(timeSheet);
-
-        restTimeSheetMockMvc.perform(post("/api/time-sheets")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(timeSheetDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<TimeSheet> timeSheetList = timeSheetRepository.findAll();
-        assertThat(timeSheetList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllTimeSheets() throws Exception {
         // Initialize the database
         timeSheetRepository.saveAndFlush(timeSheet);
@@ -220,11 +168,7 @@ public class TimeSheetResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(timeSheet.getId().intValue())))
-            .andExpect(jsonPath("$.[*].empID").value(hasItem(DEFAULT_EMP_ID)))
-            .andExpect(jsonPath("$.[*].fullName").value(hasItem(DEFAULT_FULL_NAME.toString())))
-            .andExpect(jsonPath("$.[*].personId").value(hasItem(DEFAULT_PERSON_ID.toString())))
             .andExpect(jsonPath("$.[*].forDate").value(hasItem(DEFAULT_FOR_DATE.toString())))
-            .andExpect(jsonPath("$.[*].forDay").value(hasItem(DEFAULT_FOR_DAY.toString())))
             .andExpect(jsonPath("$.[*].actualHours").value(hasItem(DEFAULT_ACTUAL_HOURS)))
             .andExpect(jsonPath("$.[*].comments").value(hasItem(DEFAULT_COMMENTS.toString())));
     }
@@ -241,11 +185,7 @@ public class TimeSheetResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(timeSheet.getId().intValue()))
-            .andExpect(jsonPath("$.empID").value(DEFAULT_EMP_ID))
-            .andExpect(jsonPath("$.fullName").value(DEFAULT_FULL_NAME.toString()))
-            .andExpect(jsonPath("$.personId").value(DEFAULT_PERSON_ID.toString()))
             .andExpect(jsonPath("$.forDate").value(DEFAULT_FOR_DATE.toString()))
-            .andExpect(jsonPath("$.forDay").value(DEFAULT_FOR_DAY.toString()))
             .andExpect(jsonPath("$.actualHours").value(DEFAULT_ACTUAL_HOURS))
             .andExpect(jsonPath("$.comments").value(DEFAULT_COMMENTS.toString()));
     }
@@ -270,11 +210,7 @@ public class TimeSheetResourceIntTest {
         // Disconnect from session so that the updates on updatedTimeSheet are not directly saved in db
         em.detach(updatedTimeSheet);
         updatedTimeSheet
-            .empID(UPDATED_EMP_ID)
-            .fullName(UPDATED_FULL_NAME)
-            .personId(UPDATED_PERSON_ID)
             .forDate(UPDATED_FOR_DATE)
-            .forDay(UPDATED_FOR_DAY)
             .actualHours(UPDATED_ACTUAL_HOURS)
             .comments(UPDATED_COMMENTS);
         TimeSheetDTO timeSheetDTO = timeSheetMapper.toDto(updatedTimeSheet);
@@ -288,11 +224,7 @@ public class TimeSheetResourceIntTest {
         List<TimeSheet> timeSheetList = timeSheetRepository.findAll();
         assertThat(timeSheetList).hasSize(databaseSizeBeforeUpdate);
         TimeSheet testTimeSheet = timeSheetList.get(timeSheetList.size() - 1);
-        assertThat(testTimeSheet.getEmpID()).isEqualTo(UPDATED_EMP_ID);
-        assertThat(testTimeSheet.getFullName()).isEqualTo(UPDATED_FULL_NAME);
-        assertThat(testTimeSheet.getPersonId()).isEqualTo(UPDATED_PERSON_ID);
         assertThat(testTimeSheet.getForDate()).isEqualTo(UPDATED_FOR_DATE);
-        assertThat(testTimeSheet.getForDay()).isEqualTo(UPDATED_FOR_DAY);
         assertThat(testTimeSheet.getActualHours()).isEqualTo(UPDATED_ACTUAL_HOURS);
         assertThat(testTimeSheet.getComments()).isEqualTo(UPDATED_COMMENTS);
     }

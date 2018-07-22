@@ -14,11 +14,11 @@
                 <th jhiSortBy="login"><span jhiTranslate="userManagement.login">Login</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="email"><span jhiTranslate="userManagement.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
-                <th jhiSortBy="langKey"> <span jhiTranslate="userManagement.langKey">Lang Key</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="organization"> <span jhiTranslate="userManagement.organization">Organization</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th><span jhiTranslate="userManagement.profiles">Profiles</span></th>
-                <th jhiSortBy="createdDate"><span jhiTranslate="userManagement.createdDate">Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="lastModifiedBy"><span jhiTranslate="userManagement.lastModifiedBy">Last Modified By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="lastModifiedDate"><span jhiTranslate="userManagement.lastModifiedDate">Last Modified Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="agileTeam.teamName"><span jhiTranslate="userManagement.agileTeam">Agile Team</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="department.departmentName"><span jhiTranslate="userManagement.department">Department</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="projectCode.projectCode"><span jhiTranslate="userManagement.projectCode">Project Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
             </tr>
             </thead>
@@ -33,15 +33,15 @@
                     <button class="btn btn-success btn-sm" (click)="setActive(user, false)" *ngIf="user.activated"
                             [disabled]="currentAccount.login === user.login" jhiTranslate="userManagement.activated">Activated</button>
                 </td>
-                <td>{{user.langKey}}</td>
+                <td>{{user.organization ? user.organization.name : ''}}</td>
                 <td>
                     <div *ngFor="let authority of user.authorities">
                         <span class="badge badge-info">{{ authority }}</span>
                     </div>
                 </td>
-                <td>{{user.createdDate | date:'dd/MM/yy HH:mm'}}</td>
-                <td>{{user.lastModifiedBy}}</td>
-                <td>{{user.lastModifiedDate | date:'dd/MM/yy HH:mm'}}</td>
+                <td>{{user.agileTeam ? user.agileTeam.teamName:''}}</td>
+                <td>{{user.department ? user.department.departmentName:''}}</td>
+                <td>{{user.projectCode ? user.projectCode.projectCode:''}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

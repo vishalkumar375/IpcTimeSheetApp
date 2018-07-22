@@ -1,33 +1,25 @@
 import { Moment } from 'moment';
+import { ITaskType } from 'app/shared/model/task-type.model';
+import { IUser } from 'app/core';
 
 export interface ITimeSheet {
     id?: number;
-    empID?: number;
-    fullName?: string;
-    personId?: string;
     forDate?: Moment;
-    forDay?: string;
     actualHours?: number;
     comments?: string;
-    departmentId?: number;
-    agileTeamId?: number;
-    projectCodeId?: number;
-    taskTypeId?: number;
+    taskType?: ITaskType;
+    user?: IUser;
+    
 }
 
 export class TimeSheet implements ITimeSheet {
     constructor(
         public id?: number,
-        public empID?: number,
-        public fullName?: string,
-        public personId?: string,
         public forDate?: Moment,
-        public forDay?: string,
         public actualHours?: number,
         public comments?: string,
-        public departmentId?: number,
-        public agileTeamId?: number,
-        public projectCodeId?: number,
-        public taskTypeId?: number
+        public taskType?: ITaskType,
+        public user?: IUser,
+       
     ) {}
 }

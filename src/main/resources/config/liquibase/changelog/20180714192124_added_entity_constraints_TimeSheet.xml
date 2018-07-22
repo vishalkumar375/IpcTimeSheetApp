@@ -8,29 +8,17 @@
     -->
     <changeSet id="20180714192124-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="department_id"
-                                 baseTableName="time_sheet"
-                                 constraintName="fk_time_sheet_department_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="department"/>
-
-        <addForeignKeyConstraint baseColumnNames="agile_team_id"
-                                 baseTableName="time_sheet"
-                                 constraintName="fk_time_sheet_agile_team_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="agile_team"/>
-
-        <addForeignKeyConstraint baseColumnNames="project_code_id"
-                                 baseTableName="time_sheet"
-                                 constraintName="fk_time_sheet_project_code_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="project_code"/>
-
         <addForeignKeyConstraint baseColumnNames="task_type_id"
                                  baseTableName="time_sheet"
                                  constraintName="fk_time_sheet_task_type_id"
                                  referencedColumnNames="id"
                                  referencedTableName="task_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="time_sheet"
+                                 constraintName="fk_time_sheet_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
 
     </changeSet>
 </databaseChangeLog>

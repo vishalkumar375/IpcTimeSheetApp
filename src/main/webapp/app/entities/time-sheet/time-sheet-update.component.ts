@@ -8,14 +8,9 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { ITimeSheet } from 'app/shared/model/time-sheet.model';
 import { TimeSheetService } from './time-sheet.service';
-import { IDepartment } from 'app/shared/model/department.model';
-import { DepartmentService } from 'app/entities/department';
-import { IAgileTeam } from 'app/shared/model/agile-team.model';
-import { AgileTeamService } from 'app/entities/agile-team';
-import { IProjectCode } from 'app/shared/model/project-code.model';
-import { ProjectCodeService } from 'app/entities/project-code';
 import { ITaskType } from 'app/shared/model/task-type.model';
 import { TaskTypeService } from 'app/entities/task-type';
+import { IUser, UserService } from 'app/core';
 
 @Component({
     selector: 'jhi-time-sheet-update',
@@ -25,22 +20,16 @@ export class TimeSheetUpdateComponent implements OnInit {
     private _timeSheet: ITimeSheet;
     isSaving: boolean;
 
-    departments: IDepartment[];
-
-    agileteams: IAgileTeam[];
-
-    projectcodes: IProjectCode[];
-
     tasktypes: ITaskType[];
+
+    users: IUser[];
     forDate: string;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private timeSheetService: TimeSheetService,
-        private departmentService: DepartmentService,
-        private agileTeamService: AgileTeamService,
-        private projectCodeService: ProjectCodeService,
         private taskTypeService: TaskTypeService,
+        private userService: UserService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -49,63 +38,15 @@ export class TimeSheetUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ timeSheet }) => {
             this.timeSheet = timeSheet;
         });
-        this.departmentService.query({ filter: 'timesheet-is-null' }).subscribe(
-            (res: HttpResponse<IDepartment[]>) => {
-                if (!this.timeSheet.departmentId) {
-                    this.departments = res.body;
-                } else {
-                    this.departmentService.find(this.timeSheet.departmentId).subscribe(
-                        (subRes: HttpResponse<IDepartment>) => {
-                            this.departments = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.agileTeamService.query({ filter: 'timesheet-is-null' }).subscribe(
-            (res: HttpResponse<IAgileTeam[]>) => {
-                if (!this.timeSheet.agileTeamId) {
-                    this.agileteams = res.body;
-                } else {
-                    this.agileTeamService.find(this.timeSheet.agileTeamId).subscribe(
-                        (subRes: HttpResponse<IAgileTeam>) => {
-                            this.agileteams = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.projectCodeService.query({ filter: 'timesheet-is-null' }).subscribe(
-            (res: HttpResponse<IProjectCode[]>) => {
-                if (!this.timeSheet.projectCodeId) {
-                    this.projectcodes = res.body;
-                } else {
-                    this.projectCodeService.find(this.timeSheet.projectCodeId).subscribe(
-                        (subRes: HttpResponse<IProjectCode>) => {
-                            this.projectcodes = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.taskTypeService.query({ filter: 'timesheet-is-null' }).subscribe(
             (res: HttpResponse<ITaskType[]>) => {
-                if (!this.timeSheet.taskTypeId) {
-                    this.tasktypes = res.body;
-                } else {
-                    this.taskTypeService.find(this.timeSheet.taskTypeId).subscribe(
-                        (subRes: HttpResponse<ITaskType>) => {
-                            this.tasktypes = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
+                this.tasktypes = res.body;
+               },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.userService.query().subscribe(
+            (res: HttpResponse<IUser[]>) => {
+                this.users = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -142,19 +83,14 @@ export class TimeSheetUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackDepartmentById(index: number, item: IDepartment) {
-        return item.id;
-    }
-
-    trackAgileTeamById(index: number, item: IAgileTeam) {
-        return item.id;
-    }
-
-    trackProjectCodeById(index: number, item: IProjectCode) {
-        return item.id;
-    }
-
+    compareByOptionId(idFist, idSecond) {
+        return idFist && idSecond && idFist.id === idSecond.id;
+     }
     trackTaskTypeById(index: number, item: ITaskType) {
+        return item.id;
+    }
+
+    trackUserById(index: number, item: IUser) {
         return item.id;
     }
     get timeSheet() {

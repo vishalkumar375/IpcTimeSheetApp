@@ -15,49 +15,25 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="empID"><span jhiTranslate="ipcTimeSheetApp.timeSheet.empID">Emp ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="fullName"><span jhiTranslate="ipcTimeSheetApp.timeSheet.fullName">Full Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="personId"><span jhiTranslate="ipcTimeSheetApp.timeSheet.personId">Person Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="forDate"><span jhiTranslate="ipcTimeSheetApp.timeSheet.forDate">For Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="forDay"><span jhiTranslate="ipcTimeSheetApp.timeSheet.forDay">For Day</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="actualHours"><span jhiTranslate="ipcTimeSheetApp.timeSheet.actualHours">Actual Hours</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="comments"><span jhiTranslate="ipcTimeSheetApp.timeSheet.comments">Comments</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="departmentId"><span jhiTranslate="ipcTimeSheetApp.timeSheet.department">Department</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="agileTeamId"><span jhiTranslate="ipcTimeSheetApp.timeSheet.agileTeam">Agile Team</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="projectCodeId"><span jhiTranslate="ipcTimeSheetApp.timeSheet.projectCode">Project Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="taskTypeId"><span jhiTranslate="ipcTimeSheetApp.timeSheet.taskType">Task Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="taskType.id"><span jhiTranslate="ipcTimeSheetApp.timeSheet.taskType">Task Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="user.id"><span jhiTranslate="ipcTimeSheetApp.timeSheet.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let timeSheet of timeSheets ;trackBy: trackId">
                 <td><a [routerLink]="['/time-sheet', timeSheet.id, 'view' ]">{{timeSheet.id}}</a></td>
-                <td>{{timeSheet.empID}}</td>
-                <td>{{timeSheet.fullName}}</td>
-                <td>{{timeSheet.personId}}</td>
                 <td>{{timeSheet.forDate | date:'medium'}}</td>
-                <td>{{timeSheet.forDay}}</td>
                 <td>{{timeSheet.actualHours}}</td>
                 <td>{{timeSheet.comments}}</td>
                 <td>
-                    <div *ngIf="timeSheet.departmentId">
-                        <a [routerLink]="['../department', timeSheet.departmentId , 'view' ]" >{{timeSheet.departmentId}}</a>
-                    </div>
+                    {{timeSheet.taskType.taskType}}
                 </td>
                 <td>
-                    <div *ngIf="timeSheet.agileTeamId">
-                        <a [routerLink]="['../agile-team', timeSheet.agileTeamId , 'view' ]" >{{timeSheet.agileTeamId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="timeSheet.projectCodeId">
-                        <a [routerLink]="['../project-code', timeSheet.projectCodeId , 'view' ]" >{{timeSheet.projectCodeId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="timeSheet.taskTypeId">
-                        <a [routerLink]="['../task-type', timeSheet.taskTypeId , 'view' ]" >{{timeSheet.taskTypeId}}</a>
-                    </div>
+                    {{timeSheet.user.login}}
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

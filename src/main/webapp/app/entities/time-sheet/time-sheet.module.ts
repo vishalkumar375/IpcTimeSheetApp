@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { IpcTimeSheetAppSharedModule } from 'app/shared';
+import { IpcTimeSheetAppAdminModule } from 'app/admin/admin.module';
 import {
     TimeSheetComponent,
     TimeSheetDetailComponent,
@@ -15,7 +16,7 @@ import {
 const ENTITY_STATES = [...timeSheetRoute, ...timeSheetPopupRoute];
 
 @NgModule({
-    imports: [IpcTimeSheetAppSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [IpcTimeSheetAppSharedModule, IpcTimeSheetAppAdminModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         TimeSheetComponent,
         TimeSheetDetailComponent,

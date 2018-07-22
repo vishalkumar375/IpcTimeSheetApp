@@ -16,17 +16,11 @@
             "detail": {
                 "title": "Time Sheet"
             },
-            "empID": "Emp ID",
-            "fullName": "Full Name",
-            "personId": "Person Id",
             "forDate": "For Date",
-            "forDay": "For Day",
             "actualHours": "Actual Hours",
             "comments": "Comments",
-            "department": "Department",
-            "agileTeam": "Agile Team",
-            "projectCode": "Project Code",
-            "taskType": "Task Type"
+            "taskType": "Task Type",
+            "user": "User"
         }
     }
 }

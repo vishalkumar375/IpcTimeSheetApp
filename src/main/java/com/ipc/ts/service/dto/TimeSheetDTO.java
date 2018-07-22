@@ -1,9 +1,11 @@
 package com.ipc.ts.service.dto;
 
-import java.time.Instant;
-import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
+
+import com.ipc.ts.domain.TaskType;
+import com.ipc.ts.domain.User;
 
 /**
  * A DTO for the TimeSheet entity.
@@ -12,29 +14,15 @@ public class TimeSheetDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
-    private Integer empID;
-
-    @NotNull
-    private String fullName;
-
-    private String personId;
-
     private Instant forDate;
-
-    private String forDay;
 
     private Integer actualHours;
 
     private String comments;
 
-    private Long departmentId;
-
-    private Long agileTeamId;
-
-    private Long projectCodeId;
-
-    private Long taskTypeId;
+    private TaskType taskType;
+    
+    private User user;
 
     public Long getId() {
         return id;
@@ -44,44 +32,12 @@ public class TimeSheetDTO implements Serializable {
         this.id = id;
     }
 
-    public Integer getEmpID() {
-        return empID;
-    }
-
-    public void setEmpID(Integer empID) {
-        this.empID = empID;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(String personId) {
-        this.personId = personId;
-    }
-
     public Instant getForDate() {
         return forDate;
     }
 
     public void setForDate(Instant forDate) {
         this.forDate = forDate;
-    }
-
-    public String getForDay() {
-        return forDay;
-    }
-
-    public void setForDay(String forDay) {
-        this.forDay = forDay;
     }
 
     public Integer getActualHours() {
@@ -100,39 +56,23 @@ public class TimeSheetDTO implements Serializable {
         this.comments = comments;
     }
 
-    public Long getDepartmentId() {
-        return departmentId;
-    }
+    public TaskType getTaskType() {
+		return taskType;
+	}
 
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
-    }
+	public void setTaskType(TaskType taskType) {
+		this.taskType = taskType;
+	}
 
-    public Long getAgileTeamId() {
-        return agileTeamId;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public void setAgileTeamId(Long agileTeamId) {
-        this.agileTeamId = agileTeamId;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public Long getProjectCodeId() {
-        return projectCodeId;
-    }
-
-    public void setProjectCodeId(Long projectCodeId) {
-        this.projectCodeId = projectCodeId;
-    }
-
-    public Long getTaskTypeId() {
-        return taskTypeId;
-    }
-
-    public void setTaskTypeId(Long taskTypeId) {
-        this.taskTypeId = taskTypeId;
-    }
-
-    @Override
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -157,17 +97,11 @@ public class TimeSheetDTO implements Serializable {
     public String toString() {
         return "TimeSheetDTO{" +
             "id=" + getId() +
-            ", empID=" + getEmpID() +
-            ", fullName='" + getFullName() + "'" +
-            ", personId='" + getPersonId() + "'" +
             ", forDate='" + getForDate() + "'" +
-            ", forDay='" + getForDay() + "'" +
             ", actualHours=" + getActualHours() +
             ", comments='" + getComments() + "'" +
-            ", department=" + getDepartmentId() +
-            ", agileTeam=" + getAgileTeamId() +
-            ", projectCode=" + getProjectCodeId() +
-            ", taskType=" + getTaskTypeId() +
+            ", taskType=" + getTaskType() +
+            ", user=" + getUser() +
             "}";
     }
 }
