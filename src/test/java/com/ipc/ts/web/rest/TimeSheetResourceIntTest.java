@@ -4,6 +4,7 @@ import com.ipc.ts.IpcTimeSheetApp;
 
 import com.ipc.ts.domain.TimeSheet;
 import com.ipc.ts.domain.User;
+import com.ipc.ts.domain.TaskType;
 import com.ipc.ts.repository.TimeSheetRepository;
 import com.ipc.ts.service.TimeSheetService;
 import com.ipc.ts.service.dto.TimeSheetDTO;
@@ -108,6 +109,11 @@ public class TimeSheetResourceIntTest {
         em.persist(user);
         em.flush();
         timeSheet.setUser(user);
+        // Add required entity
+        TaskType taskType = TaskTypeResourceIntTest.createEntity(em);
+        em.persist(taskType);
+        em.flush();
+        timeSheet.setTaskType(taskType);
         return timeSheet;
     }
 

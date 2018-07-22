@@ -33,11 +33,15 @@
             <column name="comments" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="task_type_id" type="bigint">
-                <constraints unique="true" nullable="true" />
-            </column>            <column name="user_id" type="bigint">
-                <constraints unique="true" nullable="false" />
+
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" />
             </column>
+
+            <column name="task_type_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="time_sheet" columnName="for_date" columnDataType="datetime"/>

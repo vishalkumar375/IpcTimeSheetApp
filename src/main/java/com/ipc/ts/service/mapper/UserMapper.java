@@ -42,6 +42,12 @@ public class UserMapper {
             user.setImageUrl(userDTO.getImageUrl());
             user.setActivated(userDTO.isActivated());
             user.setLangKey(userDTO.getLangKey());
+            user.setEmpId(userDTO.getEmpId());
+            user.setPersonId(userDTO.getPersonId());
+            user.setAgileTeam(userDTO.getAgileTeam());
+            user.setDepartment(userDTO.getDepartment());
+            user.setOrganization(userDTO.getOrganization());
+            user.setProjectCode(userDTO.getProjectCode());
             Set<Authority> authorities = this.authoritiesFromStrings(userDTO.getAuthorities());
             if (authorities != null) {
                 user.setAuthorities(authorities);

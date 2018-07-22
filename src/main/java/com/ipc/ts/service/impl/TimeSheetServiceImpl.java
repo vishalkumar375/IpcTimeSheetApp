@@ -3,6 +3,8 @@ package com.ipc.ts.service.impl;
 import com.ipc.ts.service.TimeSheetService;
 import com.ipc.ts.domain.TimeSheet;
 import com.ipc.ts.repository.TimeSheetRepository;
+import com.ipc.ts.security.AuthoritiesConstants;
+import com.ipc.ts.security.SecurityUtils;
 import com.ipc.ts.service.dto.TimeSheetDTO;
 import com.ipc.ts.service.mapper.TimeSheetMapper;
 import org.slf4j.Logger;
@@ -56,9 +58,16 @@ public class TimeSheetServiceImpl implements TimeSheetService {
     @Override
     @Transactional(readOnly = true)
     public Page<TimeSheetDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all TimeSheets");
-        return timeSheetRepository.findAll(pageable)
-            .map(timeSheetMapper::toDto);
+    	if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)){
+    		log.debug("Request to get all TimeSheets");
+            return timeSheetRepository.findByUserIsCurrentUser(pageable)
+                .map(timeSheetMapper::toDto);
+    	}else{
+    		log.debug("Request to get all TimeSheets");
+            return timeSheetRepository.findAll(pageable)
+                .map(timeSheetMapper::toDto);
+    	}
+        
     }
 
 

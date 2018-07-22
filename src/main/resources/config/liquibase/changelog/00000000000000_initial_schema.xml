@@ -47,16 +47,12 @@
 			<column name="emp_id" type="int" />
 			<column name="person_id" type="int" />
 			<column name="department_id" type="bigint">
-				<constraints unique="true" nullable="true" />
 			</column>
 			<column name="agile_team_id" type="bigint">
-				<constraints unique="true" nullable="true" />
 			</column>
 			<column name="project_code_id" type="bigint">
-				<constraints unique="true" nullable="true" />
 			</column>
 			<column name="organization_id" type="bigint">
-				<constraints unique="true" nullable="true" />
 			</column>
 		</createTable>
 

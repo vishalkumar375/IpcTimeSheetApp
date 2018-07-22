@@ -3,6 +3,8 @@ package com.ipc.ts.domain;
 import com.ipc.ts.config.Constants;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
@@ -90,20 +92,20 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name="person_id")
     private Integer personId;
     
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne(optional = false)
+    @JsonIgnoreProperties("")
     private AgileTeam agileTeam;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne(optional = false)
+    @JsonIgnoreProperties("")
     private ProjectCode projectCode;
     
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne(optional = false)
+    @JsonIgnoreProperties("")
     private Department department;
     
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne(optional = false)
+    @JsonIgnoreProperties("")
     private Organization organization;
     
 

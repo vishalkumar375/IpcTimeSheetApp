@@ -1,5 +1,6 @@
 package com.ipc.ts.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -33,14 +34,15 @@ public class TimeSheet implements Serializable {
     @Column(name = "comments")
     private String comments;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private TaskType taskType;
-
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
+    @JsonIgnoreProperties("")
     private User user;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("")
+    private TaskType taskType;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -90,19 +92,6 @@ public class TimeSheet implements Serializable {
         this.comments = comments;
     }
 
-    public TaskType getTaskType() {
-        return taskType;
-    }
-
-    public TimeSheet taskType(TaskType taskType) {
-        this.taskType = taskType;
-        return this;
-    }
-
-    public void setTaskType(TaskType taskType) {
-        this.taskType = taskType;
-    }
-
     public User getUser() {
         return user;
     }
@@ -114,6 +103,19 @@ public class TimeSheet implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    public TimeSheet taskType(TaskType taskType) {
+        this.taskType = taskType;
+        return this;
+    }
+
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
