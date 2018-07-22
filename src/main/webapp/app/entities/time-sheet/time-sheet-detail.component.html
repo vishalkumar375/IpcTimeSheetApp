@@ -19,13 +19,11 @@
                 </dd>
                 <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.taskType">Task Type</span></dt>
                 <dd>
-                    <div *ngIf="timeSheet.taskTypeId">
-                        <a [routerLink]="['/task-type', timeSheet.taskTypeId, 'view']">{{timeSheet.taskTypeId}}</a>
-                    </div>
+                    {{timeSheet.taskType.taskType}}
                 </dd>
                 <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.user">User</span></dt>
                 <dd>
-                    {{timeSheet.userLogin}}
+                    {{timeSheet.user.login}}
                 </dd>
             </dl>
 
