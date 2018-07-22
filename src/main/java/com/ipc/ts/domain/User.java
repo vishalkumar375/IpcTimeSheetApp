@@ -102,6 +102,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JoinColumn(unique = true)
     private Department department;
     
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Organization organization;
+    
 
     @JsonIgnore
     @ManyToMany
@@ -259,6 +263,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
+	
+	public Organization getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
+	}
 
 	@Override
     public boolean equals(Object o) {
@@ -294,6 +306,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
             ", empId='" + empId + '\'' +
             ", agileTeam='" + agileTeam + '\'' +
             ", projectCode='" + projectCode + '\'' +
+            ", organzation='" + organization + '\'' +
             "}";
     }
 }

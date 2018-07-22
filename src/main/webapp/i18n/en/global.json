@@ -12,6 +12,7 @@
                 "department": "Department",
                 "taskType": "Task Type",
                 "timeSheet": "Time Sheet",
+                "organization": "Organization",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

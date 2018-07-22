@@ -74,7 +74,7 @@
                     <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.agileTeam" for="field_agileTeam">Agile Team</label>
                     <select class="form-control" id="field_agileTeam" name="agileTeam" [(ngModel)]="timeSheet.agileTeamId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="agileTeamOption.id" *ngFor="let agileTeamOption of agileteams; trackBy: trackAgileTeamById">{{agileTeamOption.id}}</option>
+                        <option [ngValue]="agileTeamOption.id" [label]="agileTeamOption.teamName" *ngFor="let agileTeamOption of agileteams; trackBy: trackAgileTeamById">{{agileTeamOption.id}}</option>
                     </select>
                 </div>
                 <div class="form-group">

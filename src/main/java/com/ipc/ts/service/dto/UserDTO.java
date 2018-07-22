@@ -1,18 +1,21 @@
 package com.ipc.ts.service.dto;
 
+import java.time.Instant;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import com.ipc.ts.config.Constants;
 import com.ipc.ts.domain.AgileTeam;
 import com.ipc.ts.domain.Authority;
 import com.ipc.ts.domain.Department;
+import com.ipc.ts.domain.Organization;
 import com.ipc.ts.domain.ProjectCode;
 import com.ipc.ts.domain.User;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.*;
-import java.time.Instant;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * A DTO representing a user, with his authorities.
@@ -63,6 +66,8 @@ public class UserDTO {
     private ProjectCode projectCode;
     
     private Department department;
+    
+    private Organization organization;
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
@@ -86,6 +91,7 @@ public class UserDTO {
         this.agileTeam = user.getAgileTeam();
         this.projectCode = user.getProjectCode();
         this.department = user.getDepartment();
+        this.organization = user.getOrganization();
         this.authorities = user.getAuthorities().stream()
             .map(Authority::getName)
             .collect(Collectors.toSet());
@@ -235,6 +241,16 @@ public class UserDTO {
 		this.department = department;
 	}
 
+	
+	
+	public Organization getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
+	}
+
 	@Override
     public String toString() {
         return "UserDTO{" +
@@ -249,6 +265,7 @@ public class UserDTO {
             ", empId='" + empId + '\'' +
             ", agileTeam='" + agileTeam + '\'' +
             ", projectCode='" + projectCode + '\'' +
+            ", organization='" + organization + '\'' +
             ", langKey='" + langKey + '\'' +
             ", createdBy=" + createdBy +
             ", createdDate=" + createdDate +

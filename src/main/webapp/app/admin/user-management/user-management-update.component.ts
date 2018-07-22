@@ -6,6 +6,8 @@ import { IAgileTeam } from 'app/shared/model/agile-team.model';
 import { AgileTeamService } from 'app/entities/agile-team';
 import { IProjectCode } from 'app/shared/model/project-code.model';
 import { ProjectCodeService } from 'app/entities/project-code';
+import { IOrganization } from 'app/shared/model/organization.model';
+import { OrganizationService } from 'app/entities/organization';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
 import { Observable } from 'rxjs';
@@ -22,6 +24,7 @@ export class UserMgmtUpdateComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
     departments: IDepartment[];
+    organizations: IOrganization[];
     agileteams: IAgileTeam[];
     projectcodes: IProjectCode[];
 
@@ -32,6 +35,7 @@ export class UserMgmtUpdateComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private departmentService: DepartmentService,
+        private organizationService: OrganizationService,
         private agileTeamService: AgileTeamService,
         private projectCodeService: ProjectCodeService,
     ) {}
@@ -48,48 +52,27 @@ export class UserMgmtUpdateComponent implements OnInit {
         this.languageHelper.getAll().then(languages => {
             this.languages = languages;
         });
-        this.departmentService.query({ filter: 'timesheet-is-null' }).subscribe(
+        this.departmentService.query({ filter: '' }).subscribe(
             (res: HttpResponse<IDepartment[]>) => {
-                if (!this.user.department) {
-                    this.departments = res.body;
-                } else {
-                    this.departmentService.find(this.user.department.id).subscribe(
-                        (subRes: HttpResponse<IDepartment>) => {
-                            this.departments = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
+                this.departments = res.body;
+             },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.organizationService.query({ filter: '' }).subscribe(
+            (res: HttpResponse<IOrganization[]>) => {
+                this.organizations = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.agileTeamService.query({ filter: 'timesheet-is-null' }).subscribe(
+        this.agileTeamService.query({ filter: '' }).subscribe(
             (res: HttpResponse<IAgileTeam[]>) => {
-                if (!this.user.agileTeam) {
-                    this.agileteams = res.body;
-                } else {
-                    this.agileTeamService.find(this.user.agileTeam.id).subscribe(
-                        (subRes: HttpResponse<IAgileTeam>) => {
-                            this.agileteams = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
+                this.agileteams = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.projectCodeService.query({ filter: 'timesheet-is-null' }).subscribe(
+        this.projectCodeService.query({ filter: '' }).subscribe(
             (res: HttpResponse<IProjectCode[]>) => {
-                if (!this.user.projectCode) {
-                    this.projectcodes = res.body;
-                } else {
-                    this.projectCodeService.find(this.user.projectCode.id).subscribe(
-                        (subRes: HttpResponse<IProjectCode>) => {
-                            this.projectcodes = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
+                this.projectcodes = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -99,6 +82,9 @@ export class UserMgmtUpdateComponent implements OnInit {
         this.router.navigate(['/admin/user-management']);
     }
 
+    compareByOptionId(idFist, idSecond) {
+        return idFist && idSecond && idFist.id === idSecond.id;
+     }
     save() {
         this.isSaving = true;
         if (this.user.id !== null) {

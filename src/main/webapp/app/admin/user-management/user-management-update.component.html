@@ -136,23 +136,29 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="userManagement.department" for="field_department">Department</label>
-                    <select class="form-control" id="field_department" name="department" [(ngModel)]="user.department">
+                    <select class="form-control" id="field_department" name="department" [(ngModel)]="user.department" [compareWith]="compareByOptionId">
+                        <option *ngFor="let departmentOption of departments;" [ngValue]="departmentOption"  >{{departmentOption.departmentName}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="userManagement.organization" for="field_organization">Organization</label>
+                    <select class="form-control" id="field_organization" name="organization" [(ngModel)]="user.organization" [compareWith]="compareByOptionId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="departmentOption" *ngFor="let departmentOption of departments; trackBy: trackDepartmentById">{{departmentOption.departmentName}}</option>
+                        <option [ngValue]="organizationOption" *ngFor="let organizationOption of organizations; trackBy: trackOrganizationById">{{organizationOption.name}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="userManagement.agileTeam" for="field_agileTeam">Agile Team</label>
-                    <select class="form-control" id="field_agileTeam" name="agileTeam" [(ngModel)]="user.agileTeam">
+                    <select class="form-control" id="field_agileTeam" name="agileTeam" [(ngModel)]="user.agileTeam" [compareWith]="compareByOptionId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="agileTeamOption" *ngFor="let agileTeamOption of agileteams; trackBy: trackAgileTeamById">{{agileTeamOption.teamName}}</option>
+                        <option [ngValue]="agileTeamOption"  *ngFor="let agileTeamOption of agileteams; trackBy: trackAgileTeamById">{{agileTeamOption.teamName}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="userManagement.projectCode" for="field_projectCode">Project Code</label>
-                    <select class="form-control" id="field_projectCode" name="projectCode" [(ngModel)]="user.projectCode">
+                    <select class="form-control" id="field_projectCode" name="projectCode" [(ngModel)]="user.projectCode" [compareWith]="compareByOptionId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="projectCodeOption" *ngFor="let projectCodeOption of projectcodes; trackBy: trackProjectCodeById">{{projectCodeOption.projectCode}}</option>
+                        <option [ngValue]="projectCodeOption"  *ngFor="let projectCodeOption of projectcodes; trackBy: trackProjectCodeById">{{projectCodeOption.projectCode}}</option>
                     </select>
                 </div>
             </div>

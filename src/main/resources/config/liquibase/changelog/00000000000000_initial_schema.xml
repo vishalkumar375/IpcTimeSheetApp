@@ -55,6 +55,9 @@
 			<column name="project_code_id" type="bigint">
 				<constraints unique="true" nullable="true" />
 			</column>
+			<column name="organization_id" type="bigint">
+				<constraints unique="true" nullable="true" />
+			</column>
 		</createTable>
 
 		<createTable tableName="jhi_authority">

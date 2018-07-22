@@ -106,6 +106,7 @@ public class UserService {
         newUser.setPersonId(userDTO.getPersonId());
         newUser.setAgileTeam(userDTO.getAgileTeam());
         newUser.setDepartment(userDTO.getDepartment());
+        newUser.setOrganization(userDTO.getOrganization());
         newUser.setProjectCode(userDTO.getProjectCode());
         // new user is not active
         newUser.setActivated(false);
@@ -131,6 +132,7 @@ public class UserService {
         user.setPersonId(userDTO.getPersonId());
         user.setAgileTeam(userDTO.getAgileTeam());
         user.setDepartment(userDTO.getDepartment());
+        user.setOrganization(userDTO.getOrganization());
         user.setProjectCode(userDTO.getProjectCode());
         if (userDTO.getLangKey() == null) {
             user.setLangKey(Constants.DEFAULT_LANGUAGE); // default language
@@ -203,6 +205,7 @@ public class UserService {
                 user.setPersonId(userDTO.getPersonId());
                 user.setAgileTeam(userDTO.getAgileTeam());
                 user.setDepartment(userDTO.getDepartment());
+                user.setOrganization(userDTO.getOrganization());
                 user.setProjectCode(userDTO.getProjectCode());
                 Set<Authority> managedAuthorities = user.getAuthorities();
                 managedAuthorities.clear();

@@ -26,11 +26,12 @@
         "createdDate": "Created date",
         "lastModifiedBy": "Modified by",
         "lastModifiedDate": "Modified date",
-        "empId":"Employee Id",
-        "personId":"Person Id",
-        "agileTeam":"Agile Team",
-        "department":"Department",
-        "projectCode":"Project Code"
-
+        "empId": "Employee Id",
+        "personId": "Person Id",
+        "agileTeam": "Agile Team",
+        "department": "Department",
+        "projectCode": "Project Code",
+        "organization": "Organization"
+ 
     }
 }

@@ -1,6 +1,7 @@
 import { IAgileTeam } from 'app/shared/model/agile-team.model';
 import { IProjectCode } from 'app/shared/model/project-code.model';
 import { IDepartment } from 'app/shared/model/department.model';
+import { IOrganization } from 'app/shared/model/organization.model';
 
 export interface IUser {
     id?: any;
@@ -19,6 +20,7 @@ export interface IUser {
     department?: IDepartment;
     agileTeam?: IAgileTeam;
     projectCode?: IProjectCode;
+    organization?: IOrganization;
     empId?: number;
     personId?: number;
 }
@@ -41,6 +43,7 @@ export class User implements IUser {
         public department?: IDepartment,
         public agileTeam?: IAgileTeam,
         public projectCode?: IProjectCode,
+        public organization?: IOrganization,
         public empId?: number,
         public personId?: number
     ) {
@@ -58,6 +61,7 @@ export class User implements IUser {
         this.lastModifiedDate = lastModifiedDate ? lastModifiedDate : null;
         this.password = password ? password : null;
         this.department = department ? department : null;
+        this.organization = organization ? organization : null;
         this.agileTeam = agileTeam ? agileTeam : null;
         this.projectCode = projectCode ? projectCode : null;
         this.empId = empId ? empId : null;

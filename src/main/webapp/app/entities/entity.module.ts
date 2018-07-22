@@ -5,6 +5,8 @@ import { IpcTimeSheetAppAgileTeamModule } from './agile-team/agile-team.module';
 import { IpcTimeSheetAppDepartmentModule } from './department/department.module';
 import { IpcTimeSheetAppTaskTypeModule } from './task-type/task-type.module';
 import { IpcTimeSheetAppTimeSheetModule } from './time-sheet/time-sheet.module';
+import { IpcTimeSheetAppOrganizationModule } from './organization/organization.module';
+
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -15,6 +17,7 @@ import { IpcTimeSheetAppTimeSheetModule } from './time-sheet/time-sheet.module';
         IpcTimeSheetAppDepartmentModule,
         IpcTimeSheetAppTaskTypeModule,
         IpcTimeSheetAppTimeSheetModule,
+        IpcTimeSheetAppOrganizationModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

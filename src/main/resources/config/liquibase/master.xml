@@ -10,6 +10,7 @@
     <include file="config/liquibase/changelog/20180714192122_added_entity_Department.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180714192123_added_entity_TaskType.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180714192124_added_entity_TimeSheet.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180721161011_added_entity_Organization.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20180714192124_added_entity_constraints_TimeSheet.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->

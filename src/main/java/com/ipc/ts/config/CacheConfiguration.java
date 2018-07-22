@@ -46,6 +46,7 @@ public class CacheConfiguration {
             cm.createCache(com.ipc.ts.domain.Department.class.getName(), jcacheConfiguration);
             cm.createCache(com.ipc.ts.domain.TaskType.class.getName(), jcacheConfiguration);
             cm.createCache(com.ipc.ts.domain.TimeSheet.class.getName(), jcacheConfiguration);
+            cm.createCache(com.ipc.ts.domain.Organization.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
