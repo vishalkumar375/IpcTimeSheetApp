@@ -30,7 +30,7 @@ export const projectCodeRoute: Routes = [
         path: 'project-code',
         component: ProjectCodeComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.projectCode.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -42,7 +42,7 @@ export const projectCodeRoute: Routes = [
             projectCode: ProjectCodeResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.projectCode.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -54,7 +54,7 @@ export const projectCodeRoute: Routes = [
             projectCode: ProjectCodeResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.projectCode.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -66,7 +66,7 @@ export const projectCodeRoute: Routes = [
             projectCode: ProjectCodeResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.projectCode.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -81,7 +81,7 @@ export const projectCodePopupRoute: Routes = [
             projectCode: ProjectCodeResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.projectCode.home.title'
         },
         canActivate: [UserRouteAccessService],

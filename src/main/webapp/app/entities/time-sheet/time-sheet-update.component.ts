@@ -10,7 +10,7 @@ import { ITimeSheet } from 'app/shared/model/time-sheet.model';
 import { TimeSheetService } from './time-sheet.service';
 import { ITaskType } from 'app/shared/model/task-type.model';
 import { TaskTypeService } from 'app/entities/task-type';
-import { IUser, UserService } from 'app/core';
+import { IUser, UserService, Principal } from 'app/core';
 
 @Component({
     selector: 'jhi-time-sheet-update',
@@ -23,6 +23,7 @@ export class TimeSheetUpdateComponent implements OnInit {
     tasktypes: ITaskType[];
 
     users: IUser[];
+    loggedInUser:IUser;
     forDate: string;
 
     constructor(
@@ -30,6 +31,7 @@ export class TimeSheetUpdateComponent implements OnInit {
         private timeSheetService: TimeSheetService,
         private taskTypeService: TaskTypeService,
         private userService: UserService,
+        private principal:Principal,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -44,12 +46,20 @@ export class TimeSheetUpdateComponent implements OnInit {
                },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.userService.query().subscribe(
-            (res: HttpResponse<IUser[]>) => {
-                this.users = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.principal.identity(false).then(account => {
+            this.loggedInUser = account;
+            this.timeSheet.user = this.loggedInUser;
+            if(this.loggedInUser && this.loggedInUser.authorities.indexOf('ROLE_ADMIN')!=-1){
+                this.userService.query().subscribe(
+                    (res: HttpResponse<IUser[]>) => {
+                        this.users = res.body;
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+            }
+            
+        });
+        
     }
 
     previousState() {

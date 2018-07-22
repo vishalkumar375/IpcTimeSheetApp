@@ -8,6 +8,9 @@ Main page styles
     height: 497px;
     background: url('../../content/images/timesheet.png') no-repeat center top;
     background-size: contain;
+    margin-left: 15%;
+    position: absolute;
+    top: 15%;
 }
 
 /* wait autoprefixer update to allow simple generation of high pixel density media query */

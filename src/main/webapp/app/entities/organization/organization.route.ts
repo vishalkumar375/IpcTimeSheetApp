@@ -34,7 +34,7 @@ export const organizationRoute: Routes = [
             pagingParams: JhiResolvePagingParams
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             defaultSort: 'id,asc',
             pageTitle: 'ipcTimeSheetApp.organization.home.title'
         },
@@ -47,7 +47,7 @@ export const organizationRoute: Routes = [
             organization: OrganizationResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.organization.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -59,7 +59,7 @@ export const organizationRoute: Routes = [
             organization: OrganizationResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.organization.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -71,7 +71,7 @@ export const organizationRoute: Routes = [
             organization: OrganizationResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.organization.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -86,7 +86,7 @@ export const organizationPopupRoute: Routes = [
             organization: OrganizationResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.organization.home.title'
         },
         canActivate: [UserRouteAccessService],

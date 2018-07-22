@@ -30,7 +30,7 @@ export const departmentRoute: Routes = [
         path: 'department',
         component: DepartmentComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.department.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -42,7 +42,7 @@ export const departmentRoute: Routes = [
             department: DepartmentResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.department.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -54,7 +54,7 @@ export const departmentRoute: Routes = [
             department: DepartmentResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.department.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -66,7 +66,7 @@ export const departmentRoute: Routes = [
             department: DepartmentResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.department.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -81,7 +81,7 @@ export const departmentPopupRoute: Routes = [
             department: DepartmentResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.department.home.title'
         },
         canActivate: [UserRouteAccessService],

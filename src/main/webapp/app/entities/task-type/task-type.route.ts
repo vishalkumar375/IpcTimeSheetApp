@@ -30,7 +30,7 @@ export const taskTypeRoute: Routes = [
         path: 'task-type',
         component: TaskTypeComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.taskType.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -42,7 +42,7 @@ export const taskTypeRoute: Routes = [
             taskType: TaskTypeResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.taskType.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -54,7 +54,7 @@ export const taskTypeRoute: Routes = [
             taskType: TaskTypeResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.taskType.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -66,7 +66,7 @@ export const taskTypeRoute: Routes = [
             taskType: TaskTypeResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.taskType.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -81,7 +81,7 @@ export const taskTypePopupRoute: Routes = [
             taskType: TaskTypeResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.taskType.home.title'
         },
         canActivate: [UserRouteAccessService],

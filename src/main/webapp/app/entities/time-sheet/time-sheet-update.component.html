@@ -34,7 +34,7 @@
                         <option [ngValue]="taskTypeOption" *ngFor="let taskTypeOption of tasktypes;">{{taskTypeOption.taskType}}</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="form-group">
                     <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.user" for="field_user">User</label>
                     <select class="form-control" id="field_user" name="user" [(ngModel)]="timeSheet.user" [compareWith]="compareByOptionId" required>
                         <option *ngIf="!editForm.value.user" [ngValue]="null" selected></option>

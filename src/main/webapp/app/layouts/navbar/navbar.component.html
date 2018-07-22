@@ -10,8 +10,8 @@
     </div>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+            <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="time-sheet" (click)="collapseNavbar()">
                     <span>
                         <fa-icon [icon]="'home'"></fa-icon>
                         <span jhiTranslate="global.menu.home">Home</span>
@@ -19,7 +19,7 @@
                 </a>
             </li>
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
                     <span>
                         <fa-icon [icon]="'th-list'"></fa-icon>
@@ -59,12 +59,12 @@
                             <span jhiTranslate="global.menu.entities.organization">Organization</span>
                         </a>
                     </li>
-                    <li>
+                    <!--<li>
                         <a class="dropdown-item" routerLink="time-sheet" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.timeSheet">Time Sheet</span>
                         </a>
-                    </li>
+                    </li>-->
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>
@@ -82,7 +82,7 @@
                             <span jhiTranslate="global.menu.admin.userManagement">User management</span>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a class="dropdown-item" routerLink="admin/jhi-metrics" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon [icon]="'tachometer-alt'" [fixedWidth]="true"></fa-icon>
                             <span jhiTranslate="global.menu.admin.metrics">Metrics</span>
@@ -117,7 +117,7 @@
                             <fa-icon [icon]="'book'" [fixedWidth]="true"></fa-icon>
                             <span jhiTranslate="global.menu.admin.apidocs">API</span>
                         </a>
-                    </li>
+                    </li> -->
                     <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
                 </ul>
             </li>
@@ -134,7 +134,7 @@
                     </li>
                 </ul>
             </li>
-            <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <li  *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
                   <span *ngIf="!getImageUrl()">
                     <fa-icon [icon]="'user'"></fa-icon>

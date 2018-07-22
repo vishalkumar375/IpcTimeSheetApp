@@ -13,7 +13,7 @@
                 <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="login"><span jhiTranslate="userManagement.login">Login</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="email"><span jhiTranslate="userManagement.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th></th>
+               <!-- <th></th> -->
                 <th jhiSortBy="organization"> <span jhiTranslate="userManagement.organization">Organization</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th><span jhiTranslate="userManagement.profiles">Profiles</span></th>
                 <th jhiSortBy="agileTeam.teamName"><span jhiTranslate="userManagement.agileTeam">Agile Team</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -27,12 +27,12 @@
                 <td><a [routerLink]="['./', user.login, 'view']">{{user.id}}</a></td>
                 <td>{{user.login}}</td>
                 <td>{{user.email}}</td>
-                <td>
+                <!--<td>
                     <button class="btn btn-danger btn-sm" (click)="setActive(user, true)" *ngIf="!user.activated"
                             jhiTranslate="userManagement.deactivated">Deactivated</button>
                     <button class="btn btn-success btn-sm" (click)="setActive(user, false)" *ngIf="user.activated"
                             [disabled]="currentAccount.login === user.login" jhiTranslate="userManagement.activated">Activated</button>
-                </td>
+                </td>-->
                 <td>{{user.organization ? user.organization.name : ''}}</td>
                 <td>
                     <div *ngFor="let authority of user.authorities">

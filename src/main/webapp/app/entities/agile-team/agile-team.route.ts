@@ -30,7 +30,7 @@ export const agileTeamRoute: Routes = [
         path: 'agile-team',
         component: AgileTeamComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.agileTeam.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -42,7 +42,7 @@ export const agileTeamRoute: Routes = [
             agileTeam: AgileTeamResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.agileTeam.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -54,7 +54,7 @@ export const agileTeamRoute: Routes = [
             agileTeam: AgileTeamResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.agileTeam.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -66,7 +66,7 @@ export const agileTeamRoute: Routes = [
             agileTeam: AgileTeamResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.agileTeam.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -81,7 +81,7 @@ export const agileTeamPopupRoute: Routes = [
             agileTeam: AgileTeamResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.agileTeam.home.title'
         },
         canActivate: [UserRouteAccessService],
