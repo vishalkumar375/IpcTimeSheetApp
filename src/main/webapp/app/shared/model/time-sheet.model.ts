@@ -1,6 +1,7 @@
 import { Moment } from 'moment';
 import { ITaskType } from 'app/shared/model/task-type.model';
 import { IUser } from 'app/core';
+import { IProjectCode } from 'app/shared/model/project-code.model';
 
 export interface ITimeSheet {
     id?: number;
@@ -8,6 +9,7 @@ export interface ITimeSheet {
     actualHours?: number;
     comments?: string;
     taskType?: ITaskType;
+    projectCode?: IProjectCode;
     user?: IUser;
     
 }
@@ -19,6 +21,7 @@ export class TimeSheet implements ITimeSheet {
         public actualHours?: number,
         public comments?: string,
         public taskType?: ITaskType,
+        public projectCode?: IProjectCode,
         public user?: IUser,
        
     ) {}

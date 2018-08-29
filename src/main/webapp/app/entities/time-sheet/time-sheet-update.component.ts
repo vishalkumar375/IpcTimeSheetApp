@@ -3,12 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 
 import { ITimeSheet } from 'app/shared/model/time-sheet.model';
 import { TimeSheetService } from './time-sheet.service';
 import { ITaskType } from 'app/shared/model/task-type.model';
+import { IProjectCode } from 'app/shared/model/project-code.model';
+import { ProjectCodeService } from 'app/entities/project-code/project-code.service';
 import { TaskTypeService } from 'app/entities/task-type';
 import { IUser, UserService, Principal } from 'app/core';
 
@@ -21,6 +23,7 @@ export class TimeSheetUpdateComponent implements OnInit {
     isSaving: boolean;
 
     tasktypes: ITaskType[];
+    projectCodes:IProjectCode[];
 
     users: IUser[];
     loggedInUser:IUser;
@@ -32,6 +35,7 @@ export class TimeSheetUpdateComponent implements OnInit {
         private taskTypeService: TaskTypeService,
         private userService: UserService,
         private principal:Principal,
+        private projectCodeService : ProjectCodeService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -43,6 +47,12 @@ export class TimeSheetUpdateComponent implements OnInit {
         this.taskTypeService.query({ filter: 'timesheet-is-null' }).subscribe(
             (res: HttpResponse<ITaskType[]>) => {
                 this.tasktypes = res.body;
+               },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.projectCodeService.query({ filter: 'timesheet-is-null' }).subscribe(
+            (res: HttpResponse<IProjectCode[]>) => {
+                this.projectCodes = res.body;
                },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -68,7 +78,7 @@ export class TimeSheetUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.timeSheet.forDate = moment(this.forDate, DATE_TIME_FORMAT);
+        this.timeSheet.forDate = moment(this.forDate, DATE_FORMAT);
         if (this.timeSheet.id !== undefined) {
             this.subscribeToSaveResponse(this.timeSheetService.update(this.timeSheet));
         } else {
@@ -99,6 +109,9 @@ export class TimeSheetUpdateComponent implements OnInit {
     trackTaskTypeById(index: number, item: ITaskType) {
         return item.id;
     }
+    trackProjectCodeById(index: number, item: IProjectCode) {
+        return item.id;
+    }
 
     trackUserById(index: number, item: IUser) {
         return item.id;
@@ -109,6 +122,6 @@ export class TimeSheetUpdateComponent implements OnInit {
 
     set timeSheet(timeSheet: ITimeSheet) {
         this._timeSheet = timeSheet;
-        this.forDate = moment(timeSheet.forDate).format(DATE_TIME_FORMAT);
+        this.forDate = moment(timeSheet.forDate).format(DATE_FORMAT);
     }
 }

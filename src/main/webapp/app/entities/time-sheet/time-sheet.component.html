@@ -19,6 +19,7 @@
             <th jhiSortBy="actualHours"><span jhiTranslate="ipcTimeSheetApp.timeSheet.actualHours">Actual Hours</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="comments"><span jhiTranslate="ipcTimeSheetApp.timeSheet.comments">Comments</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="taskType.id"><span jhiTranslate="ipcTimeSheetApp.timeSheet.taskType">Task Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="projectCode.id"><span jhiTranslate="ipcTimeSheetApp.timeSheet.projectCode">Project Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="user.id"><span jhiTranslate="ipcTimeSheetApp.timeSheet.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -31,6 +32,9 @@
                 <td>{{timeSheet.comments}}</td>
                 <td>
                     {{timeSheet.taskType.taskType}}
+                </td>
+                <td>
+                    {{timeSheet.projectCode.projectCode}}
                 </td>
                 <td>
                     {{timeSheet.user.login}}

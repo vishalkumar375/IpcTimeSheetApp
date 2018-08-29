@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.ipc.ts.domain.ProjectCode;
 import com.ipc.ts.domain.TaskType;
 import com.ipc.ts.domain.User;
 
@@ -21,6 +22,8 @@ public class TimeSheetDTO implements Serializable {
     private String comments;
 
     private TaskType taskType;
+    
+    private ProjectCode projectCode;
     
     private User user;
 
@@ -64,6 +67,15 @@ public class TimeSheetDTO implements Serializable {
 		this.taskType = taskType;
 	}
 
+		
+	public ProjectCode getProjectCode() {
+		return projectCode;
+	}
+
+	public void setProjectCode(ProjectCode projectCode) {
+		this.projectCode = projectCode;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -101,6 +113,7 @@ public class TimeSheetDTO implements Serializable {
             ", actualHours=" + getActualHours() +
             ", comments='" + getComments() + "'" +
             ", taskType=" + getTaskType() +
+            ", projectCode=" + getProjectCode() +
             ", user=" + getUser() +
             "}";
     }

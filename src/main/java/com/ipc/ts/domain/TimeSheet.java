@@ -44,6 +44,10 @@ public class TimeSheet implements Serializable {
     @JsonIgnoreProperties("")
     private TaskType taskType;
 
+    @ManyToOne
+    @JsonIgnoreProperties("")
+    private ProjectCode projectCode;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -116,6 +120,19 @@ public class TimeSheet implements Serializable {
 
     public void setTaskType(TaskType taskType) {
         this.taskType = taskType;
+    }
+
+    public ProjectCode getProjectCode() {
+        return projectCode;
+    }
+
+    public TimeSheet projectCode(ProjectCode projectCode) {
+        this.projectCode = projectCode;
+        return this;
+    }
+
+    public void setProjectCode(ProjectCode projectCode) {
+        this.projectCode = projectCode;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

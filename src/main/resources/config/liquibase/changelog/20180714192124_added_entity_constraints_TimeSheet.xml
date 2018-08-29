@@ -20,5 +20,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="task_type"/>
 
+        <addForeignKeyConstraint baseColumnNames="project_code_id"
+                                 baseTableName="time_sheet"
+                                 constraintName="fk_time_sheet_project_code_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="project_code"/>
+
     </changeSet>
 </databaseChangeLog>

@@ -8,7 +8,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity TimeSheet and its DTO TimeSheetDTO.
  */
-@Mapper(componentModel = "spring", uses = {UserMapper.class, TaskTypeMapper.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class, TaskTypeMapper.class , ProjectCodeMapper.class})
 public interface TimeSheetMapper extends EntityMapper<TimeSheetDTO, TimeSheet> {
 
    

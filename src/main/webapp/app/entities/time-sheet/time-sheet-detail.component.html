@@ -5,6 +5,19 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.user">User</span></dt>
+                <dd>
+                    {{timeSheet.user.login}}
+                </dd>
+                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.projectCode">Project Code</span></dt>
+                <dd>
+                    {{timeSheet.projectCode.projectCode}}
+                </dd>
+                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.taskType">Task Type</span></dt>
+                <dd>
+                    {{timeSheet.taskType.taskType}}
+                </dd>
+                
                 <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.forDate">For Date</span></dt>
                 <dd>
                     <span>{{timeSheet.forDate}}</span>
@@ -17,14 +30,7 @@
                 <dd>
                     <span>{{timeSheet.comments}}</span>
                 </dd>
-                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.taskType">Task Type</span></dt>
-                <dd>
-                    {{timeSheet.taskType.taskType}}
-                </dd>
-                <dt><span jhiTranslate="ipcTimeSheetApp.timeSheet.user">User</span></dt>
-                <dd>
-                    {{timeSheet.user.login}}
-                </dd>
+                
             </dl>
 
             <button type="submit"

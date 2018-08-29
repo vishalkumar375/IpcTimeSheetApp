@@ -20,6 +20,7 @@
             "actualHours": "Actual Hours",
             "comments": "Comments",
             "taskType": "Task Type",
+            "projectCode":"Project Code",
             "user": "User"
         }
     }
