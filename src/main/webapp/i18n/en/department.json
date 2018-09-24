@@ -7,9 +7,9 @@
                 "createLabel": "Create a new Department",
                 "createOrEditLabel": "Create or edit a Department"
             },
-            "created": "A new Department is created with identifier {{ param }}",
-            "updated": "A Department is updated with identifier {{ param }}",
-            "deleted": "A Department is deleted with identifier {{ param }}",
+            "created": "A new Department is created successfully",
+            "updated": "A Department is updated successfully",
+            "deleted": "A Department is deleted successfully",
             "delete": {
                 "question": "Are you sure you want to delete Department {{ id }}?"
             },

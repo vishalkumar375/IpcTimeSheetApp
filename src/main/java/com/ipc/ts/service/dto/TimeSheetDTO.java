@@ -26,6 +26,9 @@ public class TimeSheetDTO implements Serializable {
     private ProjectCode projectCode;
     
     private User user;
+    
+    private Instant[] copyToDates;
+    
 
     public Long getId() {
         return id;
@@ -84,6 +87,14 @@ public class TimeSheetDTO implements Serializable {
 		this.user = user;
 	}
 
+	public Instant[] getCopyToDates() {
+		return copyToDates;
+	}
+
+	public void setCopyToDates(Instant[] copyToDates) {
+		this.copyToDates = copyToDates;
+	}
+
 	@Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -104,6 +115,8 @@ public class TimeSheetDTO implements Serializable {
     public int hashCode() {
         return Objects.hashCode(getId());
     }
+    
+    
 
     @Override
     public String toString() {

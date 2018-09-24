@@ -4,11 +4,11 @@
             <h2 id="jhi-time-sheet-heading" jhiTranslate="ipcTimeSheetApp.timeSheet.home.createOrEditLabel">Create or edit a Time Sheet</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!timeSheet.id">
+                <!--<div class="form-group" [hidden]="!timeSheet.id">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="timeSheet.id" readonly />
-                </div>
+                </div>-->
                 <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="form-group">
                     <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.user" for="field_user">User</label>
                     <select class="form-control" id="field_user" name="user" [(ngModel)]="timeSheet.user" [compareWith]="compareByOptionId" required>
@@ -33,14 +33,20 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.forDate" for="field_forDate">For Date</label>
                     <div class="d-flex">
-                        <input id="field_forDate" type="date" class="form-control" name="forDate" [(ngModel)]="forDate"
+                        <input id="field_forDate" type="date" (ngModelChange)="populateCopyToArray($event)" class="form-control forDat" name="forDate" [(ngModel)]="forDate" [disabled] = "this.timeSheet.id"
                         />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.copyTo" for="field_copyTo">Copy to : </label>
+                    <div class="d-flex" id="field_copyTo" >
+                        <label class="weekDayCheckBox" *ngFor="let item of toCopyArray;index as i" ><input id="copyTo_{{i}}" type="checkbox" class="form-control " name="copyTo_{{i}}" [(ngModel)]="item.isSelected" [disabled]="item.isDisabled"/>{{item.weekDate | date:'EEE d MMM, y'}}</label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.actualHours" for="field_actualHours">Actual Hours</label>
                     <input type="number" class="form-control" name="actualHours" id="field_actualHours"
-                        [(ngModel)]="timeSheet.actualHours" />
+                        [(ngModel)]="timeSheet.actualHours" required/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.comments" for="field_comments">Comments</label>

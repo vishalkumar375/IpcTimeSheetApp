@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
+import { Moment } from 'moment';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 
@@ -14,9 +15,11 @@ import { ProjectCodeService } from 'app/entities/project-code/project-code.servi
 import { TaskTypeService } from 'app/entities/task-type';
 import { IUser, UserService, Principal } from 'app/core';
 
+
 @Component({
     selector: 'jhi-time-sheet-update',
-    templateUrl: './time-sheet-update.component.html'
+    templateUrl: './time-sheet-update.component.html',
+    styleUrls: ['timesheet.scss']
 })
 export class TimeSheetUpdateComponent implements OnInit {
     private _timeSheet: ITimeSheet;
@@ -28,6 +31,7 @@ export class TimeSheetUpdateComponent implements OnInit {
     users: IUser[];
     loggedInUser:IUser;
     forDate: string;
+    toCopyArray:any[];
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -69,7 +73,22 @@ export class TimeSheetUpdateComponent implements OnInit {
             }
             
         });
-        
+        this.populateCopyToArray(undefined);
+    }
+
+    populateCopyToArray($event){
+        this.toCopyArray = new Array<any>();
+        let forDateMoment = $event? moment($event, DATE_FORMAT) : moment(this.forDate, DATE_FORMAT);
+        for(let i=1;i<8;i++){
+            let weekDay = this.getCurrentWeekDay(i,moment(forDateMoment));
+            this.toCopyArray.push({isSelected:weekDay.isSame(forDateMoment),weekDate:weekDay,isDisabled:weekDay.isSame(forDateMoment)});
+        }
+    }
+
+    getCurrentWeekDay(dayIndex,selectedForDate):Moment{
+        let dateOfWeek:Moment = moment(selectedForDate.startOf('week').toDate());
+        dateOfWeek.add(dayIndex,'days');
+        return dateOfWeek;
     }
 
     previousState() {
@@ -79,7 +98,15 @@ export class TimeSheetUpdateComponent implements OnInit {
     save() {
         this.isSaving = true;
         this.timeSheet.forDate = moment(this.forDate, DATE_FORMAT);
-        if (this.timeSheet.id !== undefined) {
+        let copyToDates:Moment[]=new Array<Moment>();
+        this.toCopyArray.forEach(element => {
+            if(!element.isDisabled && element.isSelected){
+                copyToDates.push(element.weekDate);
+            }
+        });
+        this.timeSheet.copyToDates = copyToDates;
+        console.log(this.timeSheet);
+       if (this.timeSheet.id !== undefined) {
             this.subscribeToSaveResponse(this.timeSheetService.update(this.timeSheet));
         } else {
             this.subscribeToSaveResponse(this.timeSheetService.create(this.timeSheet));
@@ -87,7 +114,7 @@ export class TimeSheetUpdateComponent implements OnInit {
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<ITimeSheet>>) {
-        result.subscribe((res: HttpResponse<ITimeSheet>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<ITimeSheet>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError(res));
     }
 
     private onSaveSuccess() {
@@ -95,8 +122,9 @@ export class TimeSheetUpdateComponent implements OnInit {
         this.previousState();
     }
 
-    private onSaveError() {
+    private onSaveError(res:HttpErrorResponse) {
         this.isSaving = false;
+        alert(res.error.title);
     }
 
     private onError(errorMessage: string) {
@@ -123,5 +151,6 @@ export class TimeSheetUpdateComponent implements OnInit {
     set timeSheet(timeSheet: ITimeSheet) {
         this._timeSheet = timeSheet;
         this.forDate = moment(timeSheet.forDate).format(DATE_FORMAT);
+        
     }
 }

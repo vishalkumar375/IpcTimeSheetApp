@@ -7,9 +7,9 @@
                 "createLabel": "Create a new Time Sheet",
                 "createOrEditLabel": "Create or edit a Time Sheet"
             },
-            "created": "A new Time Sheet is created with identifier {{ param }}",
-            "updated": "A Time Sheet is updated with identifier {{ param }}",
-            "deleted": "A Time Sheet is deleted with identifier {{ param }}",
+            "created": "A new Time Sheet is created successfully",
+            "updated": "A Time Sheet is updated successfully",
+            "deleted": "A Time Sheet is deleted successfully",
             "delete": {
                 "question": "Are you sure you want to delete Time Sheet {{ id }}?"
             },
@@ -17,6 +17,7 @@
                 "title": "Time Sheet"
             },
             "forDate": "For Date",
+            "copyTo":"Copy To",
             "actualHours": "Actual Hours",
             "comments": "Comments",
             "taskType": "Task Type",

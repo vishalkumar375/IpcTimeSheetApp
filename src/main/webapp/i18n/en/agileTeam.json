@@ -7,9 +7,9 @@
                 "createLabel": "Create a new Agile Team",
                 "createOrEditLabel": "Create or edit a Agile Team"
             },
-            "created": "A new Agile Team is created with identifier {{ param }}",
-            "updated": "A Agile Team is updated with identifier {{ param }}",
-            "deleted": "A Agile Team is deleted with identifier {{ param }}",
+            "created": "A new Agile Team is created successfully",
+            "updated": "A Agile Team is updated successfully",
+            "deleted": "A Agile Team is deleted successfully",
             "delete": {
                 "question": "Are you sure you want to delete Agile Team {{ id }}?"
             },

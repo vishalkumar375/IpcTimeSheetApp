@@ -1,12 +1,12 @@
 package com.ipc.ts.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.ipc.ts.service.TimeSheetService;
-import com.ipc.ts.web.rest.errors.BadRequestAlertException;
-import com.ipc.ts.web.rest.util.HeaderUtil;
-import com.ipc.ts.web.rest.util.PaginationUtil;
-import com.ipc.ts.service.dto.TimeSheetDTO;
-import io.github.jhipster.web.util.ResponseUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -14,14 +14,24 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.codahale.metrics.annotation.Timed;
+import com.ipc.ts.service.TimeSheetService;
+import com.ipc.ts.service.dto.TimeSheetDTO;
+import com.ipc.ts.web.rest.errors.BadRequestAlertException;
+import com.ipc.ts.web.rest.errors.InternalServerErrorException;
+import com.ipc.ts.web.rest.util.HeaderUtil;
+import com.ipc.ts.web.rest.util.PaginationUtil;
 
-import java.util.List;
-import java.util.Optional;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing TimeSheet.
@@ -69,18 +79,24 @@ public class TimeSheetResource {
      * or with status 500 (Internal Server Error) if the timeSheetDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PutMapping("/time-sheets")
-    @Timed
-    public ResponseEntity<TimeSheetDTO> updateTimeSheet(@Valid @RequestBody TimeSheetDTO timeSheetDTO) throws URISyntaxException {
-        log.debug("REST request to update TimeSheet : {}", timeSheetDTO);
-        if (timeSheetDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        TimeSheetDTO result = timeSheetService.save(timeSheetDTO);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, timeSheetDTO.getId().toString()))
-            .body(result);
-    }
+	@PutMapping("/time-sheets")
+	@Timed
+	public ResponseEntity<TimeSheetDTO> updateTimeSheet(@Valid @RequestBody TimeSheetDTO timeSheetDTO)
+			throws URISyntaxException {
+		log.debug("REST request to update TimeSheet : {}", timeSheetDTO);
+		if (timeSheetDTO.getId() == null) {
+			throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+		}
+		try {
+			TimeSheetDTO result = timeSheetService.save(timeSheetDTO);
+			return ResponseEntity.ok()
+					.headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, timeSheetDTO.getId().toString()))
+					.body(result);
+		} catch (InternalServerErrorException e) {
+			 throw new BadRequestAlertException(e.getMessage(),ENTITY_NAME,"");
+		}
+
+	}
 
     /**
      * GET  /time-sheets : get all the timeSheets.

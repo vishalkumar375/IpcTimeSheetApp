@@ -7,9 +7,9 @@
                 "createLabel": "Create a new Organization",
                 "createOrEditLabel": "Create or edit a Organization"
             },
-            "created": "A new Organization is created with identifier {{ param }}",
-            "updated": "A Organization is updated with identifier {{ param }}",
-            "deleted": "A Organization is deleted with identifier {{ param }}",
+            "created": "A new Organization is created successfully",
+            "updated": "A Organization is updated successfully",
+            "deleted": "A Organization is deleted successfully",
             "delete": {
                 "question": "Are you sure you want to delete Organization {{ id }}?"
             },

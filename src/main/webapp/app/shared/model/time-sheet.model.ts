@@ -11,6 +11,7 @@ export interface ITimeSheet {
     taskType?: ITaskType;
     projectCode?: IProjectCode;
     user?: IUser;
+    copyToDates?:Moment[];
     
 }
 
@@ -23,6 +24,7 @@ export class TimeSheet implements ITimeSheet {
         public taskType?: ITaskType,
         public projectCode?: IProjectCode,
         public user?: IUser,
+        public copyToDates?:Moment[],
        
     ) {}
 }

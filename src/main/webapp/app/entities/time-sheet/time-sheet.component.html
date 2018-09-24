@@ -14,7 +14,7 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!--<th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
             <th jhiSortBy="forDate"><span jhiTranslate="ipcTimeSheetApp.timeSheet.forDate">For Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="actualHours"><span jhiTranslate="ipcTimeSheetApp.timeSheet.actualHours">Actual Hours</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="comments"><span jhiTranslate="ipcTimeSheetApp.timeSheet.comments">Comments</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -26,8 +26,8 @@
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let timeSheet of timeSheets ;trackBy: trackId">
-                <td><a [routerLink]="['/time-sheet', timeSheet.id, 'view' ]">{{timeSheet.id}}</a></td>
-                <td>{{timeSheet.forDate | date:'medium'}}</td>
+                <!--<td><a [routerLink]="['/time-sheet', timeSheet.id, 'view' ]">{{timeSheet.id}}</a></td>-->
+                <td>{{timeSheet.forDate | date:'EEE d MMM, y'}}</td>
                 <td>{{timeSheet.actualHours}}</td>
                 <td>{{timeSheet.comments}}</td>
                 <td>

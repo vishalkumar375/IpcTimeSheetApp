@@ -1,22 +1,24 @@
 package com.ipc.ts.service.impl;
 
-import com.ipc.ts.service.TimeSheetService;
-import com.ipc.ts.domain.TimeSheet;
-import com.ipc.ts.repository.TimeSheetRepository;
-import com.ipc.ts.security.AuthoritiesConstants;
-import com.ipc.ts.security.SecurityUtils;
-import com.ipc.ts.service.dto.TimeSheetDTO;
-import com.ipc.ts.service.mapper.TimeSheetMapper;
+import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import java.util.Optional;
+import com.ipc.ts.domain.TimeSheet;
+import com.ipc.ts.repository.TimeSheetRepository;
+import com.ipc.ts.security.AuthoritiesConstants;
+import com.ipc.ts.security.SecurityUtils;
+import com.ipc.ts.service.TimeSheetService;
+import com.ipc.ts.service.dto.TimeSheetDTO;
+import com.ipc.ts.service.mapper.TimeSheetMapper;
+import com.ipc.ts.web.rest.errors.InternalServerErrorException;
 /**
  * Service Implementation for managing TimeSheet.
  */
@@ -42,14 +44,45 @@ public class TimeSheetServiceImpl implements TimeSheetService {
      * @return the persisted entity
      */
     @Override
-    public TimeSheetDTO save(TimeSheetDTO timeSheetDTO) {
-        log.debug("Request to save TimeSheet : {}", timeSheetDTO);
-        TimeSheet timeSheet = timeSheetMapper.toEntity(timeSheetDTO);
-        timeSheet = timeSheetRepository.save(timeSheet);
-        return timeSheetMapper.toDto(timeSheet);
+    public TimeSheetDTO save(TimeSheetDTO timeSheetDTO) throws InternalServerErrorException{
+    	TimeSheetDTO timeSheetDTOReturn = null;
+    	timeSheetDTOReturn =  saveTimeSheet(timeSheetDTO);
+    	if(timeSheetDTO.getCopyToDates()!=null && timeSheetDTO.getCopyToDates().length>0){
+    		for (Instant forDate : timeSheetDTO.getCopyToDates()) {
+				if (!timeSheetDTO.getForDate().equals(forDate)) {
+					TimeSheet timeSheet = timeSheetMapper.toEntity(timeSheetDTO);
+					timeSheet.setForDate(forDate);
+					List<TimeSheet> sheets = timeSheetRepository.findByTaskTypeAndProjectCodeAndForDateAndUser(timeSheet.getTaskType(),
+							timeSheet.getProjectCode(), timeSheet.getForDate(), timeSheet.getUser());
+					for(TimeSheet ts : sheets){
+						timeSheetRepository.delete(ts);
+					}
+					timeSheet.setId(null);
+					timeSheetDTOReturn = timeSheetMapper.toDto(timeSheetRepository.save(timeSheet));
+				}
+			}
+    	}
+       return timeSheetDTOReturn;
+    }
+    private TimeSheetDTO saveTimeSheet(TimeSheetDTO timeSheetDTO){
+    	log.debug("Request to save TimeSheet : {}", timeSheetDTO);
+    	if((timeSheetDTO.getId() != null) || (!alreadyLogged(timeSheetDTO) && timeSheetDTO.getId() == null)){
+    		 TimeSheet timeSheet = timeSheetMapper.toEntity(timeSheetDTO);
+    	     timeSheet = timeSheetRepository.save(timeSheet);
+    	     return timeSheetMapper.toDto(timeSheet);
+    	}else{
+    		throw new InternalServerErrorException("Time is already logged for selected [project code,task type and date] kindly edit to make the changes ");
+    	}
+      
     }
 
-    /**
+    private boolean alreadyLogged(TimeSheetDTO timeSheetDTO) {
+    	TimeSheet sheet = timeSheetMapper.toEntity(timeSheetDTO);
+    	List<TimeSheet> sheets = timeSheetRepository.findByTaskTypeAndProjectCodeAndForDateAndUser(sheet.getTaskType(), sheet.getProjectCode(), sheet.getForDate(),sheet.getUser());
+		return sheets!=null && sheets.size()>0;
+	}
+
+	/**
      * Get all the timeSheets.
      *
      * @param pageable the pagination information
