@@ -1,10 +1,14 @@
 package com.ipc.ts.service;
 
+import com.ipc.ts.domain.TimeSheet;
 import com.ipc.ts.service.dto.TimeSheetDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.sql.Date;
+import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -43,4 +47,6 @@ public interface TimeSheetService {
      * @param id the id of the entity
      */
     void delete(Long id);
+    
+    List<TimeSheetDTO> exportTimeSheet(String org, Instant startDate, Instant endDate);
 }

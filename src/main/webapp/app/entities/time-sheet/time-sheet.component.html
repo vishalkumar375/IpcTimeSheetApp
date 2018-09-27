@@ -1,6 +1,26 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="ipcTimeSheetApp.timeSheet.home.title">Time Sheets</span>
+        
+        <div class="exportContainerDiv" *jhiHasAnyAuthority="'ROLE_ADMIN'">
+            <label class="form-control-label reportDateLabel" for="field_startDate">Start
+                Date</label>
+            <div class="d-flex reportDate">
+                <input id="field_startDate" type="date" class="form-control forDat"
+                    name="startDate" [(ngModel)]="startDate" />
+            </div>
+        
+            <label class="form-control-label reportDateLabel" for="field_endDate">End Date</label>
+            <div class="d-flex reportDate">
+                <input id="field_endDate" type="date" class="form-control forDat"
+                    name="endDate" [(ngModel)]="endDate" />
+            </div>
+        
+            <button type="button" class="btn btn-primary" (click)="exportTS()">
+                <span> Export</span>
+            </button>
+        </div>
+        
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-time-sheet" [routerLink]="['/time-sheet/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="ipcTimeSheetApp.timeSheet.home.createLabel">
@@ -8,6 +28,8 @@
             </span>
         </button>
     </h2>
+    
+     
     <jhi-alert></jhi-alert>
     <br/>
     <div class="table-responsive" *ngIf="timeSheets">

@@ -16,7 +16,7 @@ type EntityArrayResponseType = HttpResponse<ITimeSheet[]>;
 export class TimeSheetService {
     private resourceUrl = SERVER_API_URL + 'api/time-sheets';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     create(timeSheet: ITimeSheet): Observable<EntityResponseType> {
         const copy = this.convertDateFromClient(timeSheet);
@@ -36,6 +36,12 @@ export class TimeSheetService {
         return this.http
             .get<ITimeSheet>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
+
+    export(org: string, startDate: string, endDate: string): Observable<any> {
+        return this.http
+            .get<ITimeSheet>(`${this.resourceUrl}/export/${org}/${startDate}/${endDate}`, { observe: 'response' })
+            .pipe(map((res: any) => this.convertDateArrayFromServer(res)));
     }
 
     query(req?: any): Observable<EntityArrayResponseType> {

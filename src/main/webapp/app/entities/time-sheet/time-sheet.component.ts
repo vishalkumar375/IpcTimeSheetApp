@@ -8,10 +8,12 @@ import { Principal } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { TimeSheetService } from './time-sheet.service';
-
+import { Angular5Csv } from 'angular5-csv/Angular5-csv';
+import * as moment from 'moment';
 @Component({
     selector: 'jhi-time-sheet',
-    templateUrl: './time-sheet.component.html'
+    templateUrl: './time-sheet.component.html',
+    styleUrls: ['timesheet.scss']
 })
 export class TimeSheetComponent implements OnInit, OnDestroy {
     timeSheets: ITimeSheet[];
@@ -24,6 +26,18 @@ export class TimeSheetComponent implements OnInit, OnDestroy {
     queryCount: any;
     reverse: any;
     totalItems: number;
+    startDate: string;
+    endDate: string;
+    exportOptions = {
+        fieldSeparator: ',',
+        quoteStrings: '"',
+        decimalseparator: '.',
+        showLabels: true,
+        showTitle: true,
+        useBom: true,
+        noDownload: false,
+        headers: ['Emp ID', 'Full Name', 'Department', 'Agile Team', 'Date', 'Day', 'Project Code', 'Task Type', 'Actual Hour', 'Comments']
+    };
 
     constructor(
         private timeSheetService: TimeSheetService,
@@ -41,6 +55,49 @@ export class TimeSheetComponent implements OnInit, OnDestroy {
         this.predicate = 'id';
         this.reverse = true;
     }
+
+    exportTS() {
+
+        if (this.startDate && this.endDate) {
+            this.timeSheetService
+                .export(
+                    this.currentAccount.organization.name,
+                    this.startDate,
+                    this.endDate
+                ).subscribe(
+                    (res: HttpResponse<ITimeSheet[]>) => this.downloadFileSuccess(res.body),
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+        } else {
+            alert('Please enter dates for export.');
+        }
+    }
+
+    private downloadFileSuccess(timesheets: ITimeSheet[]) {
+        const exportData = [];
+
+        timesheets.forEach(ts => {
+            const exportObj = {
+                empId: ts.user.empId,
+                fullName: ts.user.firstName + ' ' + ts.user.lastName,
+                department: ts.user.department.departmentName,
+                agileTeam: ts.user.agileTeam.teamName,
+                forDate: moment(ts.forDate).format('d-MMM-YYYY'),
+                forDay: moment(ts.forDate).format('ddd'),
+                projectCode: ts.user.projectCode.projectCode,
+                taskType: ts.taskType.taskType,
+                actualHours: ts.actualHours,
+                comments: ts.comments
+            };
+            exportData.push(exportObj);
+        });
+        const fileName = 'timesheet##' + this.startDate + '##to#' + this.endDate;
+        new Angular5Csv(exportData, fileName, this.exportOptions);
+    }
+    downloadFileError(res: Response) {
+        console.log('error', res);
+    }
+
 
     loadAll() {
         this.timeSheetService
