@@ -144,21 +144,21 @@
                     <label class="form-control-label" jhiTranslate="userManagement.organization" for="field_organization">Organization</label>
                     <select class="form-control" id="field_organization" name="organization" [(ngModel)]="user.organization" [compareWith]="compareByOptionId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="organizationOption" *ngFor="let organizationOption of organizations; trackBy: trackOrganizationById">{{organizationOption.name}}</option>
+                        <option [ngValue]="organizationOption" *ngFor="let organizationOption of organizations;">{{organizationOption.name}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="userManagement.agileTeam" for="field_agileTeam">Agile Team</label>
                     <select class="form-control" id="field_agileTeam" name="agileTeam" [(ngModel)]="user.agileTeam" [compareWith]="compareByOptionId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="agileTeamOption"  *ngFor="let agileTeamOption of agileteams; trackBy: trackAgileTeamById">{{agileTeamOption.teamName}}</option>
+                        <option [ngValue]="agileTeamOption"  *ngFor="let agileTeamOption of agileteams;">{{agileTeamOption.teamName}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="userManagement.projectCode" for="field_projectCode">Project Code</label>
                     <select class="form-control" id="field_projectCode" name="projectCode" [(ngModel)]="user.projectCode" [compareWith]="compareByOptionId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="projectCodeOption"  *ngFor="let projectCodeOption of projectcodes; trackBy: trackProjectCodeById">{{projectCodeOption.projectCode}}</option>
+                        <option [ngValue]="projectCodeOption"  *ngFor="let projectCodeOption of projectcodes;">{{projectCodeOption.projectCode}}</option>
                     </select>
                 </div>
             </div>

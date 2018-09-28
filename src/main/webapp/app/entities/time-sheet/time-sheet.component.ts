@@ -57,14 +57,10 @@ export class TimeSheetComponent implements OnInit, OnDestroy {
     }
 
     exportTS() {
-
         if (this.startDate && this.endDate) {
             this.timeSheetService
-                .export(
-                    this.currentAccount.organization.name,
-                    this.startDate,
-                    this.endDate
-                ).subscribe(
+                .export(this.currentAccount.organization.name, this.startDate, this.endDate)
+                .subscribe(
                     (res: HttpResponse<ITimeSheet[]>) => this.downloadFileSuccess(res.body),
                     (res: HttpErrorResponse) => this.onError(res.message)
                 );
@@ -92,12 +88,11 @@ export class TimeSheetComponent implements OnInit, OnDestroy {
             exportData.push(exportObj);
         });
         const fileName = 'timesheet##' + this.startDate + '##to#' + this.endDate;
-        new Angular5Csv(exportData, fileName, this.exportOptions);
+        const angularCsv = new Angular5Csv(exportData, fileName, this.exportOptions);
     }
     downloadFileError(res: Response) {
         console.log('error', res);
     }
-
 
     loadAll() {
         this.timeSheetService

@@ -15,7 +15,6 @@ import { ProjectCodeService } from 'app/entities/project-code/project-code.servi
 import { TaskTypeService } from 'app/entities/task-type';
 import { IUser, UserService, Principal } from 'app/core';
 
-
 @Component({
     selector: 'jhi-time-sheet-update',
     templateUrl: './time-sheet-update.component.html',
@@ -26,20 +25,20 @@ export class TimeSheetUpdateComponent implements OnInit {
     isSaving: boolean;
 
     tasktypes: ITaskType[];
-    projectCodes:IProjectCode[];
+    projectCodes: IProjectCode[];
 
     users: IUser[];
-    loggedInUser:IUser;
+    loggedInUser: IUser;
     forDate: string;
-    toCopyArray:any[];
+    toCopyArray: any[];
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private timeSheetService: TimeSheetService,
         private taskTypeService: TaskTypeService,
         private userService: UserService,
-        private principal:Principal,
-        private projectCodeService : ProjectCodeService,
+        private principal: Principal,
+        private projectCodeService: ProjectCodeService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -51,19 +50,19 @@ export class TimeSheetUpdateComponent implements OnInit {
         this.taskTypeService.query({ filter: 'timesheet-is-null' }).subscribe(
             (res: HttpResponse<ITaskType[]>) => {
                 this.tasktypes = res.body;
-               },
+            },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
         this.projectCodeService.query({ filter: 'timesheet-is-null' }).subscribe(
             (res: HttpResponse<IProjectCode[]>) => {
                 this.projectCodes = res.body;
-               },
+            },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
         this.principal.identity(false).then(account => {
             this.loggedInUser = account;
             this.timeSheet.user = this.loggedInUser;
-            if(this.loggedInUser && this.loggedInUser.authorities.indexOf('ROLE_ADMIN')!=-1){
+            if (this.loggedInUser && this.loggedInUser.authorities.indexOf('ROLE_ADMIN') !== -1) {
                 this.userService.query().subscribe(
                     (res: HttpResponse<IUser[]>) => {
                         this.users = res.body;
@@ -71,23 +70,26 @@ export class TimeSheetUpdateComponent implements OnInit {
                     (res: HttpErrorResponse) => this.onError(res.message)
                 );
             }
-            
         });
         this.populateCopyToArray(undefined);
     }
 
-    populateCopyToArray($event){
+    populateCopyToArray($event) {
         this.toCopyArray = new Array<any>();
-        let forDateMoment = $event? moment($event, DATE_FORMAT) : moment(this.forDate, DATE_FORMAT);
-        for(let i=1;i<8;i++){
-            let weekDay = this.getCurrentWeekDay(i,moment(forDateMoment));
-            this.toCopyArray.push({isSelected:weekDay.isSame(forDateMoment),weekDate:weekDay,isDisabled:weekDay.isSame(forDateMoment)});
+        const forDateMoment = $event ? moment($event, DATE_FORMAT) : moment(this.forDate, DATE_FORMAT);
+        for (let i = 1; i < 8; i++) {
+            const weekDay = this.getCurrentWeekDay(i, moment(forDateMoment));
+            this.toCopyArray.push({
+                isSelected: weekDay.isSame(forDateMoment),
+                weekDate: weekDay,
+                isDisabled: weekDay.isSame(forDateMoment)
+            });
         }
     }
 
-    getCurrentWeekDay(dayIndex,selectedForDate):Moment{
-        let dateOfWeek:Moment = moment(selectedForDate.startOf('week').toDate());
-        dateOfWeek.add(dayIndex,'days');
+    getCurrentWeekDay(dayIndex, selectedForDate): Moment {
+        const dateOfWeek: Moment = moment(selectedForDate.startOf('week').toDate());
+        dateOfWeek.add(dayIndex, 'days');
         return dateOfWeek;
     }
 
@@ -98,15 +100,15 @@ export class TimeSheetUpdateComponent implements OnInit {
     save() {
         this.isSaving = true;
         this.timeSheet.forDate = moment(this.forDate, DATE_FORMAT);
-        let copyToDates:Moment[]=new Array<Moment>();
+        const copyToDates: Moment[] = new Array<Moment>();
         this.toCopyArray.forEach(element => {
-            if(!element.isDisabled && element.isSelected){
+            if (!element.isDisabled && element.isSelected) {
                 copyToDates.push(element.weekDate);
             }
         });
         this.timeSheet.copyToDates = copyToDates;
         console.log(this.timeSheet);
-       if (this.timeSheet.id !== undefined) {
+        if (this.timeSheet.id !== undefined) {
             this.subscribeToSaveResponse(this.timeSheetService.update(this.timeSheet));
         } else {
             this.subscribeToSaveResponse(this.timeSheetService.create(this.timeSheet));
@@ -122,7 +124,7 @@ export class TimeSheetUpdateComponent implements OnInit {
         this.previousState();
     }
 
-    private onSaveError(res:HttpErrorResponse) {
+    private onSaveError(res: HttpErrorResponse) {
         this.isSaving = false;
         alert(res.error.title);
     }
@@ -133,7 +135,7 @@ export class TimeSheetUpdateComponent implements OnInit {
 
     compareByOptionId(idFist, idSecond) {
         return idFist && idSecond && idFist.id === idSecond.id;
-     }
+    }
     trackTaskTypeById(index: number, item: ITaskType) {
         return item.id;
     }
@@ -151,6 +153,5 @@ export class TimeSheetUpdateComponent implements OnInit {
     set timeSheet(timeSheet: ITimeSheet) {
         this._timeSheet = timeSheet;
         this.forDate = moment(timeSheet.forDate).format(DATE_FORMAT);
-        
     }
 }

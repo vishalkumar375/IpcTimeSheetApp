@@ -27,10 +27,10 @@ export class TimeSheetResolve implements Resolve<ITimeSheet> {
 
 export const timeSheetRoute: Routes = [
     {
-        path: 'time-sheet', 
+        path: 'time-sheet',
         component: TimeSheetComponent,
         data: {
-            authorities: ['ROLE_USER','ROLE_ADMIN'],
+            authorities: ['ROLE_USER', 'ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.timeSheet.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -42,7 +42,7 @@ export const timeSheetRoute: Routes = [
             timeSheet: TimeSheetResolve
         },
         data: {
-            authorities: ['ROLE_USER','ROLE_ADMIN'],
+            authorities: ['ROLE_USER', 'ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.timeSheet.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -54,7 +54,7 @@ export const timeSheetRoute: Routes = [
             timeSheet: TimeSheetResolve
         },
         data: {
-            authorities: ['ROLE_USER','ROLE_ADMIN'],
+            authorities: ['ROLE_USER', 'ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.timeSheet.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -66,7 +66,7 @@ export const timeSheetRoute: Routes = [
             timeSheet: TimeSheetResolve
         },
         data: {
-            authorities: ['ROLE_USER','ROLE_ADMIN'],
+            authorities: ['ROLE_USER', 'ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.timeSheet.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -81,7 +81,7 @@ export const timeSheetPopupRoute: Routes = [
             timeSheet: TimeSheetResolve
         },
         data: {
-            authorities: ['ROLE_USER','ROLE_ADMIN'],
+            authorities: ['ROLE_USER', 'ROLE_ADMIN'],
             pageTitle: 'ipcTimeSheetApp.timeSheet.home.title'
         },
         canActivate: [UserRouteAccessService],

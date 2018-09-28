@@ -1,5 +1,4 @@
 import { Component, AfterViewInit, Renderer, ElementRef, OnInit } from '@angular/core';
-//import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { JhiEventManager } from 'ng-jhipster';
 
@@ -23,8 +22,7 @@ export class JhiLoginModalComponent implements OnInit {
         private stateStorageService: StateStorageService,
         private elementRef: ElementRef,
         private renderer: Renderer,
-        private router: Router,
-        //public activeModal: NgbActiveModal
+        private router: Router
     ) {
         this.credentials = {};
     }
@@ -52,7 +50,6 @@ export class JhiLoginModalComponent implements OnInit {
             })
             .then(() => {
                 this.authenticationError = false;
-                //this.activeModal.dismiss('login success');
                 if (this.router.url === '/register' || /^\/activate\//.test(this.router.url) || /^\/reset\//.test(this.router.url)) {
                     this.router.navigate(['']);
                 }
@@ -81,7 +78,6 @@ export class JhiLoginModalComponent implements OnInit {
     }*/
 
     requestResetPassword() {
-        //this.activeModal.dismiss('to state requestReset');
         this.router.navigate(['/reset', 'request']);
     }
 }
