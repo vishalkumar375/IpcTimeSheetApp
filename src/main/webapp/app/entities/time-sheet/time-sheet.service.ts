@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
+import { Moment } from 'moment';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { map } from 'rxjs/operators';
 
@@ -16,7 +17,7 @@ type EntityArrayResponseType = HttpResponse<ITimeSheet[]>;
 export class TimeSheetService {
     private resourceUrl = SERVER_API_URL + 'api/time-sheets';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
     create(timeSheet: ITimeSheet): Observable<EntityResponseType> {
         const copy = this.convertDateFromClient(timeSheet);
@@ -38,9 +39,9 @@ export class TimeSheetService {
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
-    export(org: string, startDate: string, endDate: string): Observable<any> {
+    export(exportRequest: any): Observable<any> {
         return this.http
-            .get<ITimeSheet>(`${this.resourceUrl}/export/${org}/${startDate}/${endDate}`, { observe: 'response' })
+            .post<ITimeSheet>(`${this.resourceUrl}/export`, exportRequest, { observe: 'response' })
             .pipe(map((res: any) => this.convertDateArrayFromServer(res)));
     }
 

@@ -58,8 +58,13 @@ export class TimeSheetComponent implements OnInit, OnDestroy {
 
     exportTS() {
         if (this.startDate && this.endDate) {
+            const exportRequest = {
+                org: this.currentAccount.organization.name,
+                startDate: moment(this.startDate),
+                endDate: moment(this.endDate)
+            };
             this.timeSheetService
-                .export(this.currentAccount.organization.name, this.startDate, this.endDate)
+                .export(exportRequest)
                 .subscribe(
                     (res: HttpResponse<ITimeSheet[]>) => this.downloadFileSuccess(res.body),
                     (res: HttpErrorResponse) => this.onError(res.message)
@@ -78,9 +83,13 @@ export class TimeSheetComponent implements OnInit, OnDestroy {
                 fullName: ts.user.firstName + ' ' + ts.user.lastName,
                 department: ts.user.department.departmentName,
                 agileTeam: ts.user.agileTeam.teamName,
-                forDate: moment(ts.forDate).format('d-MMM-YYYY'),
-                forDay: moment(ts.forDate).format('ddd'),
-                projectCode: ts.user.projectCode.projectCode,
+                forDate: moment(ts.forDate)
+                    .local()
+                    .format('D-MMM-YYYY'),
+                forDay: moment(ts.forDate)
+                    .local()
+                    .format('ddd'),
+                projectCode: ts.projectCode.projectCode,
                 taskType: ts.taskType.taskType,
                 actualHours: ts.actualHours,
                 comments: ts.comments

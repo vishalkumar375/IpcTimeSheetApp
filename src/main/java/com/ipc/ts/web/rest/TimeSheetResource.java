@@ -1,28 +1,18 @@
 package com.ipc.ts.web.rest;
 
-import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.codahale.metrics.annotation.Timed;
 import com.ipc.ts.service.TimeSheetService;
 import com.ipc.ts.service.dto.TimeSheetDTO;
+import com.ipc.ts.service.dto.TimeSheetExportRequestDTO;
 import com.ipc.ts.web.rest.errors.BadRequestAlertException;
 import com.ipc.ts.web.rest.errors.InternalServerErrorException;
 import com.ipc.ts.web.rest.util.HeaderUtil;
@@ -170,17 +161,12 @@ public class TimeSheetResource {
 	 *            the id of the timeSheetDTO to delete
 	 * @return the ResponseEntity with status 200 (OK)
 	 */
-	@GetMapping("/time-sheets/export/{org}/{startDate}/{endDate}")
+	@PostMapping("/time-sheets/export")
 	@Timed
-	public  ResponseEntity<List<TimeSheetDTO>> exportTimeSheet(@PathVariable String org,
-			@PathVariable @DateTimeFormat(iso = ISO.DATE) String startDate,
-			@PathVariable @DateTimeFormat(iso = ISO.DATE) String endDate) {
+	public  ResponseEntity<List<TimeSheetDTO>> exportTimeSheet(@Valid @RequestBody TimeSheetExportRequestDTO exportRequestDTO) {
 		 List<TimeSheetDTO> timesheets = null;
 		try {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			Instant endDateIns=(LocalDate.parse(endDate, formatter)).plusDays(1).atStartOfDay().toInstant(ZoneOffset.UTC);
-			  timesheets = timeSheetService.exportTimeSheet(org, LocalDate.parse(startDate, formatter).atStartOfDay().toInstant(ZoneOffset.UTC), 
-					endDateIns);
+			timesheets = timeSheetService.exportTimeSheet(exportRequestDTO.getOrg(), exportRequestDTO.getStartDate(),exportRequestDTO.getEndDate());
 		} catch (Exception ex) {
 			log.error("Exception while export : {}", ex);
 		}
