@@ -145,6 +145,9 @@ public class TimeSheetServiceImpl implements TimeSheetService {
 		try{
 			List<TimeSheet> sheets = timeSheetRepository.findByOrgAndDate(org, startDate, endDate);
 			sheets.forEach(ts ->{
+				if(ts.getComments()==null){
+					ts.setComments("");
+				}
 				timeSheets.add(timeSheetMapper.toDto(ts));
 			});
 		

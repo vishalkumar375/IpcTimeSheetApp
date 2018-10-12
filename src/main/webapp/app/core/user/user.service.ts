@@ -28,6 +28,10 @@ export class UserService {
         const options = createRequestOption(req);
         return this.http.get<IUser[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
+    queryForTimeSheet(req?: any): Observable<HttpResponse<IUser[]>> {
+        const options = createRequestOption(req);
+        return this.http.get<IUser[]>(this.resourceUrl + '?paged=true&size=100', { params: options, observe: 'response' });
+    }
 
     delete(login: string): Observable<HttpResponse<any>> {
         return this.http.delete(`${this.resourceUrl}/${login}`, { observe: 'response' });

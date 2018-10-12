@@ -33,7 +33,7 @@ export class TimeSheetComponent implements OnInit, OnDestroy {
         quoteStrings: '"',
         decimalseparator: '.',
         showLabels: true,
-        showTitle: true,
+        showTitle: false,
         useBom: true,
         noDownload: false,
         headers: ['Emp ID', 'Full Name', 'Department', 'Agile Team', 'Date', 'Day', 'Project Code', 'Task Type', 'Actual Hour', 'Comments']

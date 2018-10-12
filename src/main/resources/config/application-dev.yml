@@ -40,9 +40,9 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/IpcTimeSheetApp?useUnicode=true&characterEncoding=utf8&useSSL=false
+        url: jdbc:mysql://172.16.117.182:3306/IpcTimeSheetApp?useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
-        password: root
+        password: WElcome12#
         hikari:
             data-source-properties:
                 cachePrepStmts: true
