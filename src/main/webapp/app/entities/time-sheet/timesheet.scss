@@ -1,14 +1,18 @@
-.weekDayCheckBox{
+.weekDayCheckBox {
     text-align: center;
 }
-.reportDate{
-    width: 180px;
+.reportDate {
+    width: 165px;
     display: inline-block !important;
 }
-.reportDateLabel{
-    font-size : 14px;
+.reportDateLabel {
+    font-size: 14px;
 }
-.exportContainerDiv{
+.userList {
+    width: 200px;
     display: inline-block;
-    margin-left: 10%;
+}
+.exportContainerDiv {
+    display: inline-block;
+    margin-left: 3%;
 }

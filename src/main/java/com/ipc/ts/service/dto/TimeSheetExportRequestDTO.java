@@ -7,6 +7,8 @@ public class TimeSheetExportRequestDTO {
 	String org;
 	Instant startDate;
 	Instant endDate;
+	UserDTO user;
+
 	
 	public String getOrg() {
 		return org;
@@ -26,5 +28,12 @@ public class TimeSheetExportRequestDTO {
 	public void setEndDate(Instant endDate) {
 		this.endDate = endDate;
 	}
+	public UserDTO getUser() {
+		return user;
+	}
+	public void setUser(UserDTO user) {
+		this.user = user;
+	}
+	
 	
 }

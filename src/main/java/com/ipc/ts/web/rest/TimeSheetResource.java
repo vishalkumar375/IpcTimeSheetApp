@@ -122,6 +122,24 @@ public class TimeSheetResource {
 		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/time-sheets");
 		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
 	}
+	
+	
+	/**
+	 * GET /time-sheets-for-period : get all the timeSheets for certain period.
+	 *
+	 * @param pageable
+	 *            the pagination information
+	 * @return the ResponseEntity with status 200 (OK) and the list of
+	 *         timeSheets in body
+	 */
+	@GetMapping("/time-sheets-for-period")
+	@Timed
+	public ResponseEntity<List<TimeSheetDTO>> getTimeSheetsForPeriod(Pageable pageable,@Valid @RequestBody TimeSheetExportRequestDTO exportRequestDTO) {
+		log.debug("REST request to get a page of TimeSheets for a certain period");
+		Page<TimeSheetDTO> page = timeSheetService.findAllForPeriod(pageable,exportRequestDTO);
+		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/time-sheets-for-period");
+		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+	}
 
 	/**
 	 * GET /time-sheets/:id : get the "id" timeSheet.
@@ -166,7 +184,7 @@ public class TimeSheetResource {
 	public  ResponseEntity<List<TimeSheetDTO>> exportTimeSheet(@Valid @RequestBody TimeSheetExportRequestDTO exportRequestDTO) {
 		 List<TimeSheetDTO> timesheets = null;
 		try {
-			timesheets = timeSheetService.exportTimeSheet(exportRequestDTO.getOrg(), exportRequestDTO.getStartDate(),exportRequestDTO.getEndDate());
+			timesheets = timeSheetService.exportTimeSheet(exportRequestDTO.getOrg(), exportRequestDTO.getStartDate(),exportRequestDTO.getEndDate(),exportRequestDTO.getUser());
 		} catch (Exception ex) {
 			log.error("Exception while export : {}", ex);
 		}

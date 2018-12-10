@@ -13,7 +13,7 @@
                     <label class="form-control-label" jhiTranslate="ipcTimeSheetApp.timeSheet.user" for="field_user">User</label>
                     <select class="form-control" id="field_user" name="user" [(ngModel)]="timeSheet.user" [compareWith]="compareByOptionId" required>
                         <option *ngIf="!editForm.value.user" [ngValue]="null" selected></option>
-                        <option [ngValue]="userOption" *ngFor="let userOption of users;">{{userOption.login}}</option>
+                        <option [ngValue]="userOption" *ngFor="let userOption of users">{{userOption.login}}</option>
                     </select>
                 </div>
                 <div class="form-group">

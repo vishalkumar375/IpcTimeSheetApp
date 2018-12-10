@@ -61,11 +61,17 @@ export class TimeSheetUpdateComponent implements OnInit {
         );
         this.principal.identity(false).then(account => {
             this.loggedInUser = account;
-            this.timeSheet.user = this.loggedInUser;
+            if (!this.timeSheet.user) {
+                this.timeSheet.user = this.loggedInUser;
+            }
+
             if (this.loggedInUser && this.loggedInUser.authorities.indexOf('ROLE_ADMIN') !== -1) {
                 this.userService.queryForTimeSheet().subscribe(
                     (res: HttpResponse<IUser[]>) => {
                         this.users = res.body;
+                        this.users = this.users.sort((u1, u2): number => {
+                            return u1.login > u2.login ? 1 : -1;
+                        });
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
                 );

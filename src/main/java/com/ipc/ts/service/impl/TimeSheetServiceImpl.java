@@ -22,6 +22,8 @@ import com.ipc.ts.security.AuthoritiesConstants;
 import com.ipc.ts.security.SecurityUtils;
 import com.ipc.ts.service.TimeSheetService;
 import com.ipc.ts.service.dto.TimeSheetDTO;
+import com.ipc.ts.service.dto.TimeSheetExportRequestDTO;
+import com.ipc.ts.service.dto.UserDTO;
 import com.ipc.ts.service.mapper.TimeSheetMapper;
 import com.ipc.ts.web.rest.errors.InternalServerErrorException;
 
@@ -112,6 +114,26 @@ public class TimeSheetServiceImpl implements TimeSheetService {
 		}
 
 	}
+	
+	/**
+	 * Get all the timeSheets.
+	 *
+	 * @param pageable
+	 *            the pagination information
+	 * @return the list of entities
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public Page<TimeSheetDTO> findAllForPeriod(Pageable pageable,TimeSheetExportRequestDTO requestDTO) {
+		if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)) {
+			log.debug("Request to get all TimeSheets for a period");
+			return timeSheetRepository.findByUserIsCurrentUserForPeriod(pageable,requestDTO.getOrg(),requestDTO.getStartDate(),requestDTO.getEndDate()).map(timeSheetMapper::toDto);
+		} else {
+			log.debug("Request to get all TimeSheets for a period");
+			return timeSheetRepository.findAllForPeriod(pageable,requestDTO.getOrg(),requestDTO.getStartDate(),requestDTO.getEndDate()).map(timeSheetMapper::toDto);
+		}
+
+	}
 
 	/**
 	 * Get one timeSheet by id.
@@ -140,10 +162,16 @@ public class TimeSheetServiceImpl implements TimeSheetService {
 	}
 
 	@Override
-	public List<TimeSheetDTO> exportTimeSheet(String org, Instant startDate, Instant endDate) {
+	public List<TimeSheetDTO> exportTimeSheet(String org, Instant startDate, Instant endDate,UserDTO login) {
 		List<TimeSheetDTO> timeSheets = new ArrayList<TimeSheetDTO>();
 		try{
 			List<TimeSheet> sheets = timeSheetRepository.findByOrgAndDate(org, startDate, endDate);
+			if(login!=null && !"".equals(login.getLogin())) {
+				sheets = timeSheetRepository.findByOrgLoginAndDate(login.getLogin(),org, startDate, endDate);
+	          } else{
+	        	  sheets = timeSheetRepository.findByOrgAndDate(org, startDate, endDate);
+	          }
+
 			sheets.forEach(ts ->{
 				if(ts.getComments()==null){
 					ts.setComments("");

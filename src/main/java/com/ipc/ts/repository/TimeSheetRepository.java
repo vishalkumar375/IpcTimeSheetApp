@@ -14,6 +14,7 @@ import com.ipc.ts.domain.ProjectCode;
 import com.ipc.ts.domain.TaskType;
 import com.ipc.ts.domain.TimeSheet;
 import com.ipc.ts.domain.User;
+import com.ipc.ts.service.dto.TimeSheetDTO;
 
 /**
  * Spring Data  repository for the TimeSheet entity.
@@ -29,5 +30,14 @@ public interface TimeSheetRepository extends JpaRepository<TimeSheet, Long> {
     
     @Query("select time_sheet from TimeSheet time_sheet where time_sheet.user.organization.name = ?1 and time_sheet.forDate between ?2 and ?3 Order by time_sheet.user.empId ASC, time_sheet.forDate ASC")
     List<TimeSheet> findByOrgAndDate(String org,  Instant startDate, Instant endDate);
+    
+    @Query("select time_sheet from TimeSheet time_sheet where time_sheet.user.login = ?1 and time_sheet.user.organization.name = ?2 and time_sheet.forDate between ?3 and ?4")
+    List<TimeSheet> findByOrgLoginAndDate(String login,String org,  Instant startDate, Instant endDate);
+
+    @Query("select time_sheet from TimeSheet time_sheet where time_sheet.user.organization.name = ?2 and time_sheet.forDate between ?3 and ?4")
+	Page<TimeSheet> findByUserIsCurrentUserForPeriod(Pageable pageable, String string, Instant instant, Instant instant2);
+    
+    @Query("select time_sheet from TimeSheet time_sheet where time_sheet.user.organization.name = ?2 and time_sheet.forDate between ?3 and ?4")
+	Page<TimeSheet> findAllForPeriod(Pageable pageable, String string, Instant instant, Instant instant2);
 
 }

@@ -2,6 +2,8 @@ package com.ipc.ts.service;
 
 import com.ipc.ts.domain.TimeSheet;
 import com.ipc.ts.service.dto.TimeSheetDTO;
+import com.ipc.ts.service.dto.TimeSheetExportRequestDTO;
+import com.ipc.ts.service.dto.UserDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +12,8 @@ import java.sql.Date;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 /**
  * Service Interface for managing TimeSheet.
@@ -48,5 +52,7 @@ public interface TimeSheetService {
      */
     void delete(Long id);
     
-    List<TimeSheetDTO> exportTimeSheet(String org, Instant startDate, Instant endDate);
+    List<TimeSheetDTO> exportTimeSheet(String org, Instant startDate, Instant endDate,UserDTO login);
+
+	Page<TimeSheetDTO> findAllForPeriod(Pageable pageable,TimeSheetExportRequestDTO requestDTO);
 }

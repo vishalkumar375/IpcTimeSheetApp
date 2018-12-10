@@ -4,7 +4,7 @@
         "timeSheet" : {
             "home": {
                 "title": "Time Sheets",
-                "createLabel": "Create a new Time Sheet",
+                "createLabel": "Create new",
                 "createOrEditLabel": "Create or edit a Time Sheet"
             },
             "created": "A new Time Sheet is created successfully",

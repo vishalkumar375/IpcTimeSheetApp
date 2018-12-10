@@ -15,16 +15,25 @@
                 <input id="field_endDate" type="date" class="form-control forDat"
                     name="endDate" [(ngModel)]="endDate" />
             </div>
-        
-            <button type="button" class="btn btn-primary" (click)="exportTS()">
+            
+            <label class="form-control-label reportDateLabel">User</label>
+            <select class="form-control userList" name="user" [(ngModel)]="user"  required>
+                <option value="All" selected>All</option>
+                <option [ngValue]="userOption" *ngFor="let userOption of users">{{userOption.login}}</option>
+            </select>
+            
+            <button type="button" class="btn btn-primary" (click)="exportTS(true)">
                 <span> Export</span>
+            </button>
+            <button type="button" class="btn btn-primary" (click)="exportTS(false)">
+                <span> Filter</span>
             </button>
         </div>
         
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-time-sheet" [routerLink]="['/time-sheet/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="ipcTimeSheetApp.timeSheet.home.createLabel">
-            Create new Time Sheet
+            Create new
             </span>
         </button>
     </h2>
